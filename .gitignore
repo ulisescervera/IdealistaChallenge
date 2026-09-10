@@ -1,15 +1,36 @@
-*.iml
+# ---------------------------------------------------------------------------
+# Lo que NO se ignora, y por qué (es lo que más suele romperse)
+#
+#   gradle/wrapper/gradle-wrapper.jar
+#       Se versiona SIEMPRE. Es lo que hace que `./gradlew` funcione en un clon
+#       recién hecho, sin Gradle instalado. Ignorarlo deja al que clona con
+#       "Could not find or load main class org.gradle.wrapper.GradleWrapperMain".
+#
+#   data/schemas/
+#       Room exporta ahí el esquema en cada build (`exportSchema = true` +
+#       `schemaDirectory` en data/build.gradle.kts). Versionado es el histórico
+#       que permite escribir y testear migraciones; ignorado, la primera
+#       migración se hace a ciegas.
+#
+#   .editorconfig, gradle/libs.versions.toml, gradlew, gradlew.bat
+#       Configuración del proyecto, no de la máquina.
+# ---------------------------------------------------------------------------
+
+# Salidas de build
+build/
 .gradle/
-/local.properties
-/.idea/
-.DS_Store
-/build
-*/build/
+.kotlin/
 /captures
 .externalNativeBuild
 .cxx
+
+# IDE y ficheros de la máquina local
+*.iml
+/.idea/
 local.properties
+.DS_Store
+*.hprof
+
 *.jks
 *.keystore
 !debug.keystore
-/gradle/wrapper/gradle-wrapper.jar
