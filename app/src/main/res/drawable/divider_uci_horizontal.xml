@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    LinearLayout's `android:divider` needs a Drawable with an intrinsic height.
+    Passing `?attr/colorOutlineVariant` there resolves to a colour, which some
+    platform versions refuse to inflate as a drawable.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <size android:height="1dp" />
+    <solid android:color="?attr/colorOutlineVariant" />
+</shape>

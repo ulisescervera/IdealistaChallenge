@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Title, price and facts.
+
+    This row is painted from the *cached* summary the instant the screen opens,
+    before `detail.json` answers, which is what the brief asks for: name, price,
+    size, rooms, floor, lift and garage are all available from the list payload
+    (plus the cached detail for the lift).
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/uciDetailHeader"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/uci_space_l"
+    android:paddingTop="@dimen/uci_space_l">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/uciDetailTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:importantForAccessibility="no"
+        android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+        tools:text="Piso - Castellana - Madrid" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/uci_space_s"
+        android:baselineAligned="true"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/uciDetailPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:importantForAccessibility="no"
+            android:textAppearance="@style/TextAppearance.Uci.Price"
+            tools:text="1.195.000 €" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/uciDetailPricePerMeter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/uci_space_s"
+            android:layout_weight="1"
+            android:importantForAccessibility="no"
+            android:textAppearance="@style/TextAppearance.Uci.PricePerMeter"
+            tools:text="8.985 €/m²" />
+    </LinearLayout>
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/uciDetailFacts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/uci_space_m"
+        android:importantForAccessibility="no"
+        app:chipSpacingVertical="@dimen/uci_space_xs"
+        app:singleLine="false" />
+
+</LinearLayout>

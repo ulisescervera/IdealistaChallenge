@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    The remaining properties, after the advertiser comment.
+
+    Rows are added to `uciDetailCharacteristicsContainer` in code because their
+    number varies per property (the payload is sparsely populated) and a
+    nested RecyclerView for eight static rows would be more machinery than the
+    problem deserves.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/uci_space_l"
+    android:paddingTop="@dimen/uci_space_xl">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/uci_detail_characteristics_title"
+        android:textAppearance="@style/TextAppearance.Uci.SectionTitle" />
+
+    <LinearLayout
+        android:id="@+id/uciDetailCharacteristicsContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/uci_space_s"
+        android:divider="@drawable/divider_uci_horizontal"
+        android:orientation="vertical"
+        android:showDividers="middle" />
+
+</LinearLayout>

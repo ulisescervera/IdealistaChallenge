@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    A property row.
+
+    Accessibility structure, which is the part worth reading:
+      * `uciPropertyInfo` carries a single merged contentDescription with title,
+        price and facts, and is the only focus stop for the metadata. Without it
+        TalkBack stops on nine nodes per row.
+      * The carousel and the three buttons opt back IN individually, because
+        they are actionable.
+      * The chips are `importantForAccessibility="no"`: their text is already
+        inside the merged description.
+-->
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/uciPropertyCard"
+    style="@style/Widget.Uci.Card.Property"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/uci_space_l"
+    android:layout_marginVertical="@dimen/uci_space_s">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.ulisescervera.uci.core.carousel.PropertyCarouselView
+            android:id="@+id/uciPropertyCarousel"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/uci_carousel_height" />
+
+        <LinearLayout
+            android:id="@+id/uciPropertyInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/uci_space_l"
+            android:paddingTop="@dimen/uci_space_m">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/uciPropertyTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:importantForAccessibility="no"
+                android:textAppearance="@style/TextAppearance.Uci.Title"
+                tools:text="Piso - Castellana - Madrid" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/uci_space_xs"
+                android:baselineAligned="true"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/uciPropertyPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:importantForAccessibility="no"
+                    android:textAppearance="@style/TextAppearance.Uci.Price"
+                    tools:text="1.195.000 €" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/uciPropertyPricePerMeter"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/uci_space_s"
+                    android:layout_weight="1"
+                    android:importantForAccessibility="no"
+                    android:textAppearance="@style/TextAppearance.Uci.PricePerMeter"
+                    tools:text="· 8.985 €/m²" />
+            </LinearLayout>
+
+            <!--
+                ChipGroup rather than a LinearLayout: the facts row has to wrap
+                onto a second line at large font scales, and ChipGroup is the
+                only Material container that reflows without pulling in Flexbox.
+            -->
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/uciPropertyFacts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/uci_space_s"
+                android:importantForAccessibility="no"
+                app:chipSpacingVertical="@dimen/uci_space_xs"
+                app:singleLine="false" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end|center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/uci_space_s"
+            android:paddingBottom="@dimen/uci_space_xs">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/uciPropertyFavouriteButton"
+                style="@style/Widget.Uci.IconButton.Favourite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                app:icon="@drawable/ic_uci_favourite"
+                tools:contentDescription="@string/uci_action_favourite_add" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/uciPropertyDiscardButton"
+                style="@style/Widget.Uci.IconButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/uci_action_discard"
+                app:icon="@drawable/ic_uci_delete" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

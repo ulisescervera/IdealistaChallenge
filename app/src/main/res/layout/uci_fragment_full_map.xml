@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Full-screen map, opened by tapping the interactive map in the detail
+    screen. Same osmdroid `MapView` and the same `UciMapConfigurator`, just
+    given the whole screen instead of a fixed-height row, so a pinch-to-zoom
+    or a pan is not fighting a RecyclerView for the gesture.
+-->
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <org.osmdroid.views.MapView
+        android:id="@+id/uciFullMapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:importantForAccessibility="no" />
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/uciFullMapToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:background="?attr/colorSurface"
+        app:navigationContentDescription="@string/uci_action_close"
+        app:navigationIcon="@drawable/ic_uci_close" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

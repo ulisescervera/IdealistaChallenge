@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Detail gallery row: the same PropertyCarouselView as the list, taller, and
+    with the map added as its last page. Tapping a photo opens the Compose
+    viewer; tapping the map page scrolls to the interactive map row.
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.ulisescervera.uci.core.carousel.PropertyCarouselView
+        android:id="@+id/uciDetailCarousel"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/uci_carousel_height_detail" />
+
+</FrameLayout>

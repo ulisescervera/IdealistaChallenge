@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    The three horizontal actions, plus the favourite date underneath.
+
+    Equal-weight tonal buttons, icon-only: the labels were dropped per request,
+    so the accessible name now comes from `contentDescription` alone —
+    `ActionsViewHolder.bind` keeps it in sync with each button's state (e.g.
+    "Añadir a favoritos" vs "Quitar de favoritos"), same as it already did for
+    `stateDescription`. The 48dp minimum height still holds: it comes from
+    `Widget.Uci.DetailAction`'s `minHeight`, not from the label.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/uci_space_l"
+    android:paddingTop="@dimen/uci_space_l">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/uciDetailFavouriteButton"
+            style="@style/Widget.Uci.DetailAction"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checkable="true"
+            android:contentDescription="@string/uci_action_favourite_add"
+            app:icon="@drawable/ic_uci_favourite" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/uciDetailDiscardButton"
+            style="@style/Widget.Uci.DetailAction"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/uci_space_s"
+            android:layout_weight="1"
+            android:contentDescription="@string/uci_action_discard"
+            app:icon="@drawable/ic_uci_delete" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/uciDetailShareButton"
+            style="@style/Widget.Uci.DetailAction"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/uci_space_s"
+            android:layout_weight="1"
+            android:contentDescription="@string/uci_action_share"
+            app:icon="@drawable/ic_uci_share" />
+    </LinearLayout>
+
+    <!--
+        "Guardado en favoritos el 3 de marzo de 2026, 19:12" — rendered in the
+        time zone stored with the mark, not the current one.
+    -->
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/uciDetailFavouritedOn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/uci_space_s"
+        android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+        android:textColor="?attr/colorOnSurfaceVariant"
+        android:visibility="gone"
+        tools:text="Guardado en favoritos el 3 de marzo de 2026, 19:12"
+        tools:visibility="visible" />
+
+</LinearLayout>

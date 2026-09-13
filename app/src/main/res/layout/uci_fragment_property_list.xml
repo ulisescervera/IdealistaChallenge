@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Property list screen.
+
+    Four mutually exclusive surfaces stacked in a CoordinatorLayout:
+      1. the list (SwipeRefreshLayout > RecyclerView),
+      2. the skeleton list, shown on first load only,
+      3. the empty / error state,
+      4. the undo banner, which is NOT in the stack — it pins to the top of the
+         scroll and coexists with the list, exactly as the brief describes.
+
+    No toolbar here: the title ("Inmuebles") and the map menu action are owned
+    by the Activity's shared toolbar (MainActivity.uciToolbar) and this
+    fragment's own MenuProvider, respectively. `uciListAppBar` still exists
+    purely as the undo banner's home — an AppBarLayout is what makes it pin to
+    the top of the scroll instead of scrolling away with the list.
+-->
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/uciListRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/colorBackground">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/uciListAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:liftOnScroll="true">
+
+        <!--
+            Undo banner. Lives inside the AppBarLayout so it sits at the top of
+            the scroll and is always reachable, and it is announced with
+            `announceForAccessibility` when it appears — a banner nobody is told
+            about is a banner that does not exist for a screen-reader user.
+        -->
+        <LinearLayout
+            android:id="@+id/uciUndoBanner"
+            style="@style/Widget.Uci.UndoBanner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/uciUndoMessage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                tools:text="Has borrado un inmueble del listado." />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/uciUndoAction"
+                style="@style/Widget.Uci.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/uci_space_s"
+                tools:text="@string/uci_undo_action_single" />
+        </LinearLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/uciListSwipeRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/uciPropertyList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/uci_list_bottom_padding"
+            android:scrollbars="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="3"
+            tools:listitem="@layout/uci_item_property" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <!--
+        Skeleton list. A separate, non-scrollable LinearLayout rather than a
+        second adapter state: it must never be recycled or diffed, and it
+        disappears for good after the first successful load.
+    -->
+    <LinearLayout
+        android:id="@+id/uciListSkeleton"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/uci_a11y_loading"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/uci_space_s"
+        android:visibility="gone"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:visibility="gone">
+
+        <include layout="@layout/uci_item_property_skeleton" />
+
+        <include layout="@layout/uci_item_property_skeleton" />
+
+        <include layout="@layout/uci_item_property_skeleton" />
+
+    </LinearLayout>
+
+    <!-- Empty / error state. -->
+    <LinearLayout
+        android:id="@+id/uciListPlaceholder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/uci_space_xl"
+        android:visibility="gone"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:visibility="gone">
+
+        <ImageView
+            android:id="@+id/uciPlaceholderIcon"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:importantForAccessibility="no"
+            app:tint="?attr/colorOnSurfaceVariant"
+            tools:src="@drawable/ic_uci_error" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/uciPlaceholderTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/uci_space_l"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            tools:text="No hay inmuebles" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/uciPlaceholderBody"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/uci_space_s"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            tools:text="Cuando haya inmuebles disponibles aparecerán aquí." />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/uciPlaceholderAction"
+            style="@style/Widget.Material3.Button.TonalButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/uci_space_l"
+            android:minHeight="@dimen/uci_touch_target_min"
+            android:text="@string/uci_action_retry"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

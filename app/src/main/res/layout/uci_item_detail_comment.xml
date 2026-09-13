@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Advertiser comment.
+
+    Collapsed to 6 lines with a "Leer más" toggle: these descriptions run to
+    2.000 characters and would otherwise bury the characteristics table and the
+    related block below it.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/uci_space_l"
+    android:paddingTop="@dimen/uci_space_xl">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/uciDetailCommentTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/uci_detail_comment_title"
+        android:textAppearance="@style/TextAppearance.Uci.SectionTitle" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/uciDetailCommentBody"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/uci_space_s"
+        android:ellipsize="end"
+        android:maxLines="6"
+        android:textAppearance="@style/TextAppearance.Uci.Body"
+        tools:text="Venta.Piso EN EXCLUSIVA. Castellana. Se ofrece en venta vivienda de 133 m²…" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/uciDetailCommentToggle"
+        style="@style/Widget.Uci.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/uci_space_xs"
+        android:text="@string/uci_detail_comment_expand" />
+
+</LinearLayout>

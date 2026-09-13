@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Filter sheet: every field the brief lists, applied client-side over the
+    properties the list already has.
+
+    `energyCertifications` and `statuses` are collected here but never change
+    what is visible — see `PropertyFilters`'s class doc and
+    docs/adr/0004-filtros-solo-sobre-datos-del-listado.md for why. Their chips
+    stay in the UI because the brief asks for them explicitly, and disabling
+    them silently would be more confusing than a documented no-op.
+-->
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/uci_space_l"
+        android:paddingTop="@dimen/uci_space_l"
+        android:paddingBottom="@dimen/uci_space_xl">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/uci_filters_title"
+            android:textAppearance="@style/TextAppearance.Material3.TitleLarge" />
+
+        <!-- Tipo de vivienda -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/uci_space_l"
+            android:hint="@string/uci_filters_property_type"
+            app:boxBackgroundMode="outline">
+
+            <AutoCompleteTextView
+                android:id="@+id/uciFilterTypeInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Compra / alquiler -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/uci_space_m"
+            android:hint="@string/uci_filters_operation"
+            app:boxBackgroundMode="outline">
+
+            <AutoCompleteTextView
+                android:id="@+id/uciFilterOperationInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Precio -->
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/uci_space_l"
+            android:text="@string/uci_filters_price"
+            android:textAppearance="@style/TextAppearance.Uci.SectionTitle" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/uci_space_s"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/uci_filters_from"
+                app:boxBackgroundMode="outline">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/uciFilterPriceMin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/uci_space_s"
+                android:layout_weight="1"
+                android:hint="@string/uci_filters_to"
+                app:boxBackgroundMode="outline">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/uciFilterPriceMax"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <!-- Tamaño -->
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/uci_space_l"
+            android:text="@string/uci_filters_size"
+            android:textAppearance="@style/TextAppearance.Uci.SectionTitle" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/uci_space_s"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/uci_filters_from"
+                app:boxBackgroundMode="outline">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/uciFilterSizeMin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/uci_space_s"
+                android:layout_weight="1"
+                android:hint="@string/uci_filters_to"
+                app:boxBackgroundMode="outline">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/uciFilterSizeMax"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <!-- Habitaciones -->
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/uci_space_l"
+            android:text="@string/uci_filters_rooms"
+            android:textAppearance="@style/TextAppearance.Uci.SectionTitle" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/uciFilterRoomsGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/uci_space_s">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/uciFilterRooms2"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/uciFilterRooms3"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/uciFilterRooms4"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/uciFilterRooms5Plus"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5+" />
+        </com.google.android.material.chip.ChipGroup>
+
+        <!-- Baños -->
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/uci_space_l"
+            android:text="@string/uci_filters_bathrooms"
+            android:textAppearance="@style/TextAppearance.Uci.SectionTitle" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/uciFilterBathroomsGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/uci_space_s">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/uciFilterBathrooms1"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/uciFilterBathrooms2"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/uciFilterBathrooms3"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/uciFilterBathrooms4Plus"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4+" />
+        </com.google.android.material.chip.ChipGroup>
+
+        <!-- Certificado energético -->
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/uci_space_l"
+            android:text="@string/uci_filters_energy_certification"
+            android:textAppearance="@style/TextAppearance.Uci.SectionTitle" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/uciFilterEnergyGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/uci_space_s">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/uciFilterEnergyAPlus"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="A+" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/uciFilterEnergyA"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="A" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/uciFilterEnergyB"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="B" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/uciFilterEnergyC"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="C" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/uciFilterEnergyD"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="D" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/uciFilterEnergyE"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="E" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/uciFilterEnergyF"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="F" />
+        </com.google.android.material.chip.ChipGroup>
+
+        <!-- Estado -->
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/uci_space_l"
+            android:text="@string/uci_filters_status"
+            android:textAppearance="@style/TextAppearance.Uci.SectionTitle" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/uciFilterStatusGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/uci_space_s">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/uciFilterStatusNew"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/uci_filters_status_new" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/uciFilterStatusGood"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/uci_filters_status_good" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/uciFilterStatusToRenovate"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/uci_filters_status_to_renovate" />
+        </com.google.android.material.chip.ChipGroup>
+
+        <!-- Otras características -->
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/uci_space_l"
+            android:text="@string/uci_filters_other_features"
+            android:textAppearance="@style/TextAppearance.Uci.SectionTitle" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/uciFilterFeaturesGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/uci_space_s">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/uciFilterFeatureLift"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/uci_filters_feature_lift" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/uciFilterFeatureGarage"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/uci_filters_feature_garage" />
+        </com.google.android.material.chip.ChipGroup>
+
+        <!-- Acciones -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/uci_space_xl"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/uciFilterClearButton"
+                style="@style/Widget.Uci.TextButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/uci_filters_clear" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/uciFilterApplyButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/uci_space_s"
+                android:layout_weight="1"
+                android:minHeight="@dimen/uci_touch_target_min"
+                android:text="@string/uci_filters_apply" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

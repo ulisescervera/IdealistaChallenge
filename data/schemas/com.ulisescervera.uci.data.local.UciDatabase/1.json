@@ -1,0 +1,379 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "a53e1a15eab154c913ad92756bd897da",
+    "entities": [
+      {
+        "tableName": "properties",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`property_code` TEXT NOT NULL, `order_in_feed` INTEGER NOT NULL, `property_type` TEXT NOT NULL, `operation` TEXT NOT NULL, `street` TEXT, `neighborhood` TEXT, `district` TEXT, `municipality` TEXT, `province` TEXT, `country_code` TEXT, `latitude` REAL, `longitude` REAL, `price_amount` REAL NOT NULL, `price_currency_suffix` TEXT NOT NULL, `size_square_meters` REAL NOT NULL, `rooms` INTEGER NOT NULL, `bathrooms` INTEGER NOT NULL, `raw_floor` TEXT, `has_parking_space` INTEGER, `parking_included_in_price` INTEGER, `is_exterior` INTEGER, `has_air_conditioning` INTEGER, `has_box_room` INTEGER, `has_swimming_pool` INTEGER, `has_terrace` INTEGER, `has_garden` INTEGER, `thumbnail_url` TEXT, `images` TEXT NOT NULL, `summary` TEXT NOT NULL, `cached_at` INTEGER NOT NULL, PRIMARY KEY(`property_code`))",
+        "fields": [
+          {
+            "fieldPath": "propertyCode",
+            "columnName": "property_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "orderInFeed",
+            "columnName": "order_in_feed",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "propertyType",
+            "columnName": "property_type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "operation",
+            "columnName": "operation",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "street",
+            "columnName": "street",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "neighborhood",
+            "columnName": "neighborhood",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "district",
+            "columnName": "district",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "municipality",
+            "columnName": "municipality",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "province",
+            "columnName": "province",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "countryCode",
+            "columnName": "country_code",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "latitude",
+            "columnName": "latitude",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "longitude",
+            "columnName": "longitude",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "priceAmount",
+            "columnName": "price_amount",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "priceCurrencySuffix",
+            "columnName": "price_currency_suffix",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sizeSquareMeters",
+            "columnName": "size_square_meters",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rooms",
+            "columnName": "rooms",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bathrooms",
+            "columnName": "bathrooms",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rawFloor",
+            "columnName": "raw_floor",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "hasParkingSpace",
+            "columnName": "has_parking_space",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "isParkingIncludedInPrice",
+            "columnName": "parking_included_in_price",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "isExterior",
+            "columnName": "is_exterior",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "hasAirConditioning",
+            "columnName": "has_air_conditioning",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "hasBoxRoom",
+            "columnName": "has_box_room",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "hasSwimmingPool",
+            "columnName": "has_swimming_pool",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "hasTerrace",
+            "columnName": "has_terrace",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "hasGarden",
+            "columnName": "has_garden",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "thumbnailUrl",
+            "columnName": "thumbnail_url",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "images",
+            "columnName": "images",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "summary",
+            "columnName": "summary",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cachedAtEpochMillis",
+            "columnName": "cached_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "property_code"
+          ]
+        }
+      },
+      {
+        "tableName": "property_details",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`property_code` TEXT NOT NULL, `comment` TEXT NOT NULL, `images` TEXT NOT NULL, `latitude` REAL, `longitude` REAL, `price_amount` REAL, `price_currency_suffix` TEXT, `operation` TEXT, `property_type` TEXT, `community_costs` REAL, `rooms` INTEGER, `bathrooms` INTEGER, `is_exterior` INTEGER, `housing_furniture` TEXT, `agency_is_a_bank` INTEGER, `energy_certification_type` TEXT, `flat_location` TEXT, `modification_date` INTEGER, `constructed_area` REAL, `has_lift` INTEGER, `has_box_room` INTEGER, `is_duplex` INTEGER, `raw_floor` TEXT, `status` TEXT, `energy_title` TEXT, `energy_consumption_type` TEXT, `energy_emissions_type` TEXT, `cached_at` INTEGER NOT NULL, PRIMARY KEY(`property_code`))",
+        "fields": [
+          {
+            "fieldPath": "propertyCode",
+            "columnName": "property_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "comment",
+            "columnName": "comment",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "images",
+            "columnName": "images",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "latitude",
+            "columnName": "latitude",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "longitude",
+            "columnName": "longitude",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "priceAmount",
+            "columnName": "price_amount",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "priceCurrencySuffix",
+            "columnName": "price_currency_suffix",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "operation",
+            "columnName": "operation",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "propertyType",
+            "columnName": "property_type",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "communityCostsPerMonth",
+            "columnName": "community_costs",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "rooms",
+            "columnName": "rooms",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "bathrooms",
+            "columnName": "bathrooms",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "isExterior",
+            "columnName": "is_exterior",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "housingFurniture",
+            "columnName": "housing_furniture",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "agencyIsABank",
+            "columnName": "agency_is_a_bank",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "energyCertificationType",
+            "columnName": "energy_certification_type",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "flatLocation",
+            "columnName": "flat_location",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "modificationDateEpochMillis",
+            "columnName": "modification_date",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "constructedAreaSquareMeters",
+            "columnName": "constructed_area",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "hasLift",
+            "columnName": "has_lift",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "hasBoxRoom",
+            "columnName": "has_box_room",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "isDuplex",
+            "columnName": "is_duplex",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "rawFloor",
+            "columnName": "raw_floor",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "energyTitle",
+            "columnName": "energy_title",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "energyConsumptionType",
+            "columnName": "energy_consumption_type",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "energyEmissionsType",
+            "columnName": "energy_emissions_type",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "cachedAtEpochMillis",
+            "columnName": "cached_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "property_code"
+          ]
+        }
+      },
+      {
+        "tableName": "property_flags",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`property_code` TEXT NOT NULL, `flag` TEXT NOT NULL, `updated_at` INTEGER NOT NULL, `time_zone_id` TEXT NOT NULL, PRIMARY KEY(`property_code`))",
+        "fields": [
+          {
+            "fieldPath": "propertyCode",
+            "columnName": "property_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "flag",
+            "columnName": "flag",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAtEpochMillis",
+            "columnName": "updated_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "timeZoneId",
+            "columnName": "time_zone_id",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "property_code"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a53e1a15eab154c913ad92756bd897da')"
+    ]
+  }
+}

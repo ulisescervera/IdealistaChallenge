@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Detail screen.
+
+    A single vertical RecyclerView, as required, with one view type per section.
+    The toolbar floats over the gallery (which draws behind the status bar) so
+    the shared-element transition from the list is not clipped by a solid app bar.
+-->
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/uciDetailRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/colorBackground"
+    android:transitionGroup="true">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/uciDetailList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:scrollbars="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:itemCount="4"
+        tools:listitem="@layout/uci_item_detail_header" />
+
+    <!-- Error state, for a detail that could not be loaded at all. -->
+    <LinearLayout
+        android:id="@+id/uciDetailErrorState"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?android:attr/colorBackground"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/uci_space_xl"
+        android:visibility="gone"
+        tools:visibility="gone">
+
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_uci_error"
+            app:tint="?attr/colorOnSurfaceVariant" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/uciDetailErrorTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/uci_space_l"
+            android:gravity="center"
+            android:text="@string/uci_detail_error_title"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/uciDetailErrorBody"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/uci_space_s"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            tools:text="Sin conexión. Revisa tu red e inténtalo de nuevo." />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/uciDetailErrorAction"
+            style="@style/Widget.Material3.Button.TonalButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/uci_space_l"
+            android:minHeight="@dimen/uci_touch_target_min"
+            android:text="@string/uci_action_retry" />
+
+    </LinearLayout>
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/uciDetailToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@android:color/transparent"
+        android:fitsSystemWindows="true"
+        app:navigationContentDescription="@string/uci_action_close"
+        app:navigationIcon="@drawable/ic_uci_close" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
