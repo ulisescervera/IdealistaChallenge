@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Spacing scale. Multiples of 4dp; nothing in a layout should use a
+         literal dp value that is not in this file. -->
+    <dimen name="uci_space_xxs">2dp</dimen>
+    <dimen name="uci_space_xs">4dp</dimen>
+    <dimen name="uci_space_s">8dp</dimen>
+    <dimen name="uci_space_m">12dp</dimen>
+    <dimen name="uci_space_l">16dp</dimen>
+    <dimen name="uci_space_xl">24dp</dimen>
+    <dimen name="uci_space_xxl">32dp</dimen>
+
+    <!-- 48dp is the Material minimum touch target and the threshold the
+         accessibility scanner checks. Never go below it. -->
+    <dimen name="uci_touch_target_min">48dp</dimen>
+    <dimen name="uci_icon_size">24dp</dimen>
+    <dimen name="uci_icon_size_small">18dp</dimen>
+
+    <dimen name="uci_card_corner">16dp</dimen>
+    <dimen name="uci_card_elevation">0dp</dimen>
+    <dimen name="uci_carousel_height">216dp</dimen>
+    <dimen name="uci_carousel_height_detail">280dp</dimen>
+    <dimen name="uci_related_carousel_height">160dp</dimen>
+    <dimen name="uci_map_height">220dp</dimen>
+    <dimen name="uci_skeleton_corner">8dp</dimen>
+    <dimen name="uci_skeleton_line_height">14dp</dimen>
+    <dimen name="uci_skeleton_line_height_large">22dp</dimen>
+    <dimen name="uci_indicator_dot">8dp</dimen>
+    <dimen name="uci_energy_badge">28dp</dimen>
+    <dimen name="uci_list_bottom_padding">96dp</dimen>
+
+</resources>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!--
+        INTERNET / ACCESS_NETWORK_STATE arrive transitively from :data, and are
+        re-declared here only for readability of the merged manifest.
+
+        There is deliberately NO storage permission: osmdroid is pointed at the
+        app's private cache directory in UciApplication, so map tiles never
+        touch shared storage. Nor is there a location permission: we show where
+        the *property* is, not where the user is.
+    -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:name=".UciApplication"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Uci"
+        tools:targetApi="31">
+
+        <!--
+            Single activity. `configChanges` is NOT used to swallow rotation:
+            the image viewer is required to rotate, and state is preserved
+            through ViewModels + SavedStateHandle instead, which also survives
+            process death.
+        -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.Uci.Launcher"
+            android:windowSoftInputMode="adjustResize">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!--
+                Deep links are declared once, inside the navigation graph, and
+                the `<nav-graph>` tag expands them into real intent filters at
+                build time. Declaring them twice is how the manifest and the
+                graph drift apart.
+
+                Generated filters:
+                  uci://property/{propertyId}
+                  https://ulisescervera.dev/uci/property/{propertyId}
+                  uci://property/{propertyId}/map?focusOnMap=true
+            -->
+            <nav-graph android:value="@navigation/uci_nav_graph" />
+        </activity>
+
+        <!--
+            Hilt already installs its own initializer; declaring the provider
+            explicitly keeps `androidx.startup` from being merged in twice by
+            a transitive dependency.
+        -->
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge" />
+
+    </application>
+
+</manifest>

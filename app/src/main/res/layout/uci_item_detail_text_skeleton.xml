@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Placeholder for a text block still in flight (the comment and the
+    characteristics table both use it).
+
+    `noHideDescendants` on the container plus a single contentDescription on the
+    row: TalkBack says "Cargando el detalle del inmueble" once instead of
+    walking five grey bars.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:contentDescription="@string/uci_a11y_loading_detail"
+    android:importantForAccessibility="noHideDescendants"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/uci_space_l"
+    android:paddingTop="@dimen/uci_space_xl">
+
+    <com.ulisescervera.uci.core.ui.skeleton.SkeletonView
+        android:layout_width="180dp"
+        android:layout_height="@dimen/uci_skeleton_line_height_large"
+        app:uciSkeletonShape="line" />
+
+    <com.ulisescervera.uci.core.ui.skeleton.SkeletonView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/uci_skeleton_line_height"
+        android:layout_marginTop="@dimen/uci_space_m"
+        app:uciSkeletonShape="line" />
+
+    <com.ulisescervera.uci.core.ui.skeleton.SkeletonView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/uci_skeleton_line_height"
+        android:layout_marginTop="@dimen/uci_space_s"
+        app:uciSkeletonShape="line" />
+
+    <com.ulisescervera.uci.core.ui.skeleton.SkeletonView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/uci_skeleton_line_height"
+        android:layout_marginTop="@dimen/uci_space_s"
+        app:uciSkeletonShape="line" />
+
+    <com.ulisescervera.uci.core.ui.skeleton.SkeletonView
+        android:layout_width="220dp"
+        android:layout_height="@dimen/uci_skeleton_line_height"
+        android:layout_marginTop="@dimen/uci_space_s"
+        app:uciSkeletonShape="line" />
+
+</LinearLayout>

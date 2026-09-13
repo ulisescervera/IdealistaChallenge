@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Two placeholder cards while the (simulated) related endpoint answers. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:contentDescription="@string/uci_a11y_loading_related"
+    android:importantForAccessibility="noHideDescendants"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/uci_space_xl"
+    android:paddingBottom="@dimen/uci_space_xxl">
+
+    <com.ulisescervera.uci.core.ui.skeleton.SkeletonView
+        android:layout_width="200dp"
+        android:layout_height="@dimen/uci_skeleton_line_height_large"
+        android:layout_marginHorizontal="@dimen/uci_space_l"
+        app:uciSkeletonShape="line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/uci_space_m"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/uci_space_l">
+
+        <com.ulisescervera.uci.core.ui.skeleton.SkeletonView
+            android:layout_width="260dp"
+            android:layout_height="240dp"
+            app:uciSkeletonShape="rectangle" />
+
+        <com.ulisescervera.uci.core.ui.skeleton.SkeletonView
+            android:layout_width="260dp"
+            android:layout_height="240dp"
+            android:layout_marginStart="@dimen/uci_space_m"
+            app:uciSkeletonShape="rectangle" />
+    </LinearLayout>
+
+</LinearLayout>

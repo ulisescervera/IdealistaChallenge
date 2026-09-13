@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Only the flags table is worth backing up: it is the user's own data. The
+    property cache and the HTTP cache are re-derivable from the network and
+    would just make the backup bigger and staler.
+-->
+<full-backup-content>
+    <include domain="database" path="uci.db" />
+    <exclude domain="database" path="uci.db-wal" />
+    <exclude domain="cache" path="." />
+</full-backup-content>

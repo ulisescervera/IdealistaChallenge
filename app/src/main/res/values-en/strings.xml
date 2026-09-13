@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- English translation. Keys mirror values/strings.xml exactly. -->
+<resources>
+
+    <string name="uci_tab_list">Listings</string>
+    <string name="uci_tab_favourites">Favourites</string>
+
+    <string name="uci_list_title">Listings</string>
+    <string name="uci_list_empty_title">No properties yet</string>
+    <string name="uci_list_empty_body">Available properties will show up here.</string>
+    <string name="uci_list_all_discarded_title">You have removed every property</string>
+    <string name="uci_list_all_discarded_body">Restore one to see it back in the list.</string>
+    <string name="uci_list_error_title">We could not load the properties</string>
+    <string name="uci_list_action_map">View map</string>
+    <string name="uci_list_action_filter">Filters</string>
+    <string name="uci_list_filtered_empty_title">No properties match</string>
+    <string name="uci_list_filtered_empty_body">Try removing a filter to see more results.</string>
+    <string name="uci_action_retry">Retry</string>
+    <string name="uci_action_clear_filters">Clear filters</string>
+
+    <string name="uci_filters_title">Filters</string>
+    <string name="uci_filters_any">Any</string>
+    <string name="uci_filters_property_type">Property type</string>
+    <string name="uci_filters_operation">Sale or rent</string>
+    <string name="uci_filters_operation_sale">Sale</string>
+    <string name="uci_filters_operation_rent">Rent</string>
+    <string name="uci_filters_price">Price</string>
+    <string name="uci_filters_size">Size (m²)</string>
+    <string name="uci_filters_from">From</string>
+    <string name="uci_filters_to">To</string>
+    <string name="uci_filters_rooms">Rooms</string>
+    <string name="uci_filters_bathrooms">Bathrooms</string>
+    <string name="uci_filters_energy_certification">Energy certification</string>
+    <string name="uci_filters_status">Condition</string>
+    <string name="uci_filters_status_new">New</string>
+    <string name="uci_filters_status_good">Good condition</string>
+    <string name="uci_filters_status_to_renovate">Needs renovation</string>
+    <string name="uci_filters_other_features">Other features</string>
+    <string name="uci_filters_feature_lift">Lift</string>
+    <string name="uci_filters_feature_garage">Garage</string>
+    <string name="uci_filters_clear">Clear</string>
+    <string name="uci_filters_apply">Apply</string>
+
+    <string name="uci_property_title_full">%1$s - %2$s - %3$s</string>
+    <string name="uci_property_title_two_parts">%1$s - %2$s</string>
+
+    <string name="uci_property_type_flat">Flat</string>
+    <string name="uci_property_type_duplex">Duplex</string>
+    <string name="uci_property_type_penthouse">Penthouse</string>
+    <string name="uci_property_type_studio">Studio</string>
+    <string name="uci_property_type_chalet">Chalet</string>
+    <string name="uci_property_type_country_house">Country house</string>
+    <string name="uci_property_type_house">House</string>
+    <string name="uci_property_type_room">Room</string>
+    <string name="uci_property_type_garage">Garage</string>
+    <string name="uci_property_type_office">Office</string>
+    <string name="uci_property_type_premises">Premises</string>
+    <string name="uci_property_type_unknown">Property</string>
+
+    <string name="uci_price_format">%1$s %2$s</string>
+    <string name="uci_price_per_square_meter_sale">%1$s €/sqm</string>
+    <string name="uci_price_per_square_meter_rent">%1$s €/sqm/month</string>
+    <string name="uci_price_unavailable">Price on request</string>
+
+    <string name="uci_fact_size">%1$s sqm</string>
+    <plurals name="uci_fact_rooms">
+        <item quantity="one">%d room</item>
+        <item quantity="other">%d rooms</item>
+    </plurals>
+    <plurals name="uci_fact_bathrooms">
+        <item quantity="one">%d bathroom</item>
+        <item quantity="other">%d bathrooms</item>
+    </plurals>
+    <string name="uci_fact_floor_numbered">Floor %1$d</string>
+    <string name="uci_fact_floor_ground">Ground floor</string>
+    <string name="uci_fact_floor_basement">Basement</string>
+    <string name="uci_fact_floor_mezzanine">Mezzanine</string>
+    <string name="uci_fact_floor_raw">Floor %1$s</string>
+    <string name="uci_fact_lift_yes">Lift</string>
+    <string name="uci_fact_lift_no">No lift</string>
+    <string name="uci_fact_garage_included">Garage included</string>
+    <string name="uci_fact_garage_extra">Garage sold separately</string>
+    <string name="uci_fact_garage_no">No garage</string>
+    <string name="uci_fact_exterior">Outward facing</string>
+    <string name="uci_fact_interior">Inward facing</string>
+
+    <string name="uci_action_favourite_add">Add to favourites</string>
+    <string name="uci_action_favourite_remove">Remove from favourites</string>
+    <string name="uci_action_discard">Remove from list</string>
+    <string name="uci_action_restore">Restore</string>
+    <string name="uci_action_share">Share</string>
+    <string name="uci_action_close">Close</string>
+
+    <string name="uci_undo_single">You removed one property from the list.</string>
+    <plurals name="uci_undo_multiple">
+        <item quantity="one">You removed %d property from the list.</item>
+        <item quantity="other">You removed %d properties from the list.</item>
+    </plurals>
+    <string name="uci_undo_action_single">Undo</string>
+    <string name="uci_undo_action_multiple">View removed</string>
+
+    <string name="uci_discarded_title">Removed properties</string>
+    <plurals name="uci_discarded_subtitle">
+        <item quantity="one">%d removed property</item>
+        <item quantity="other">%d removed properties</item>
+    </plurals>
+    <string name="uci_discarded_restore_all">Restore all</string>
+    <string name="uci_discarded_empty">Nothing has been removed.</string>
+    <plurals name="uci_discarded_restored_feedback">
+        <item quantity="one">%d property restored.</item>
+        <item quantity="other">%d properties restored.</item>
+    </plurals>
+
+    <string name="uci_detail_title">Property detail</string>
+    <string name="uci_detail_comment_title">Advertiser comment</string>
+    <string name="uci_detail_comment_expand">Read more</string>
+    <string name="uci_detail_comment_collapse">Read less</string>
+    <string name="uci_detail_characteristics_title">Characteristics</string>
+    <string name="uci_detail_related_title">Related properties</string>
+    <string name="uci_detail_related_empty">No related properties.</string>
+    <string name="uci_detail_map_title">Location</string>
+    <string name="uci_full_map_title">Map</string>
+    <string name="uci_a11y_open_full_map">Open full-screen map</string>
+    <string name="uci_detail_favourited_on">Saved to favourites on %1$s</string>
+    <string name="uci_detail_error_title">We could not load the detail</string>
+    <string name="uci_detail_error_not_found">This property is no longer available.</string>
+    <string name="uci_detail_back_to_list">Back to the list</string>
+
+    <string name="uci_characteristic_community_costs">Community costs</string>
+    <string name="uci_characteristic_community_costs_value">%1$s €/month</string>
+    <string name="uci_characteristic_constructed_area">Constructed area</string>
+    <string name="uci_characteristic_rooms">Rooms</string>
+    <string name="uci_characteristic_bathrooms">Bathrooms</string>
+    <string name="uci_characteristic_floor">Floor</string>
+    <string name="uci_characteristic_lift">Lift</string>
+    <string name="uci_characteristic_box_room">Box room</string>
+    <string name="uci_characteristic_duplex">Duplex</string>
+    <string name="uci_characteristic_exterior">Orientation</string>
+    <string name="uci_characteristic_furniture">Furniture</string>
+    <string name="uci_characteristic_flat_location">Position in building</string>
+    <string name="uci_characteristic_status">Condition</string>
+    <string name="uci_characteristic_energy">Energy certificate</string>
+    <string name="uci_characteristic_energy_value">Consumption %1$s · Emissions %2$s</string>
+    <string name="uci_characteristic_agency_bank">Advertised by a bank</string>
+    <string name="uci_characteristic_modified">Last updated</string>
+    <string name="uci_value_yes">Yes</string>
+    <string name="uci_value_no">No</string>
+    <string name="uci_value_unknown">No data</string>
+    <string name="uci_value_furniture_unknown">Not specified</string>
+    <string name="uci_value_flat_location_internal">Inward facing</string>
+    <string name="uci_value_flat_location_external">Outward facing</string>
+    <string name="uci_value_status_good">Good condition</string>
+    <string name="uci_value_status_renew">Needs renovation</string>
+    <string name="uci_value_status_new">New build</string>
+
+    <string name="uci_share_body">%1$s\n%2$s\n%3$s</string>
+    <string name="uci_share_chooser">Share property</string>
+
+    <string name="uci_viewer_title">Property photos</string>
+    <string name="uci_viewer_grid_hint">Tap a photo to see it full screen.</string>
+    <string name="uci_viewer_page_indicator">%1$d / %2$d</string>
+
+    <string name="uci_favourites_title">Favourites</string>
+    <string name="uci_favourites_empty_title">No favourites yet</string>
+    <string name="uci_favourites_empty_body">Tap the heart on any property to save it here.</string>
+    <plurals name="uci_favourites_count">
+        <item quantity="one">%d favourite</item>
+        <item quantity="other">%d favourites</item>
+    </plurals>
+
+    <string name="uci_error_no_connectivity">You are offline. Check your network and try again.</string>
+    <string name="uci_error_timeout">The connection took too long.</string>
+    <string name="uci_error_http">The server responded with an error (%1$d).</string>
+    <string name="uci_error_serialization">We received data we cannot read.</string>
+    <string name="uci_error_local">We could not read the saved data.</string>
+    <string name="uci_error_unexpected">Something went wrong.</string>
+
+    <string name="uci_a11y_property_card">%1$s. %2$s. %3$s</string>
+    <string name="uci_a11y_carousel">Photo carousel, %1$d photos. Swipe to browse</string>
+    <string name="uci_a11y_carousel_image">Photo %1$d of %2$d: %3$s</string>
+    <string name="uci_a11y_carousel_image_untagged">Photo %1$d of %2$d of the property</string>
+    <string name="uci_a11y_carousel_map_page">Last carousel page: map with the property location</string>
+    <string name="uci_a11y_open_viewer">Open the full screen photo viewer</string>
+    <string name="uci_a11y_favourite_state_on">In favourites</string>
+    <string name="uci_a11y_favourite_state_off">Not in favourites</string>
+    <string name="uci_a11y_loading">Loading properties</string>
+    <string name="uci_a11y_loading_detail">Loading the property detail</string>
+    <string name="uci_a11y_loading_related">Loading related properties</string>
+    <string name="uci_a11y_map">Map centred on %1$s</string>
+    <string name="uci_a11y_map_generic">Map with the property location</string>
+    <string name="uci_a11y_immersive_on">Full screen mode on. Tap again to exit</string>
+    <string name="uci_a11y_immersive_off">Full screen mode off</string>
+    <string name="uci_a11y_discarded_row">%1$s, %2$s. Tap to restore</string>
+    <string name="uci_a11y_property_photo_placeholder">This property has no photos</string>
+    <string name="uci_a11y_page_indicator">Photo %1$d of %2$d</string>
+
+</resources>

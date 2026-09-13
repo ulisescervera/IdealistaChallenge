@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    The whole app's chrome: a toolbar, a nav host and a bottom bar.
+
+    `android:fitsSystemWindows` is NOT set anywhere here. Insets are applied in
+    code (MainActivity.applyWindowInsets): the toolbar consumes the status-bar
+    inset, the bottom bar consumes the navigation-bar inset, and the nav host
+    consumes neither — both bars are real siblings the nav host is constrained
+    around (not overlays), so a screen that wants to draw fully edge to edge
+    (the detail's own transparent toolbar over its gallery) does that by being
+    the one destination where `uciToolbar` is hidden, per
+    MainActivity.updateToolbarAndBottomBar. When it is hidden, ConstraintLayout
+    collapses `uciNavHostFragment`'s top anchor back to the parent's, so the
+    fragment reclaims the full screen with no code on its side.
+
+    `uciToolbar`'s height is `wrap_content` + `minHeight="?attr/actionBarSize"`,
+    not a fixed `?attr/actionBarSize`. A fixed height plus the status-bar top
+    padding `applyWindowInsets` adds would squeeze the title and the back arrow
+    into whatever room is left *inside* that fixed box — invisible or clipped
+    on a device whose status bar is tall enough to eat most of it. `wrap_content`
+    lets the padding grow the view instead of shrinking its content.
+-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/uciRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/colorBackground">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/uciToolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:background="?attr/colorSurfaceContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextAppearance="@style/TextAppearance.Material3.TitleLarge" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/uciNavHostFragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toTopOf="@id/uciBottomNavigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/uciToolbar"
+        app:navGraph="@navigation/uci_nav_graph" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/uciBottomNavigation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorSurfaceContainer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/uci_bottom_navigation" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

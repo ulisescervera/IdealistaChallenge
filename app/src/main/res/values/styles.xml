@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Widget styles. Every text style inherits from a Material 3 type scale role,
+    so `fontScale` from the system settings is respected everywhere: no `sp`
+    value is hardcoded in a layout.
+-->
+<resources>
+
+    <style name="Widget.Uci.BottomNavigation" parent="Widget.Material3.BottomNavigationView">
+        <item name="labelVisibilityMode">labeled</item>
+        <item name="itemIconSize">@dimen/uci_icon_size</item>
+    </style>
+
+    <style name="Widget.Uci.Card" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardCornerRadius">@dimen/uci_card_corner</item>
+        <item name="cardElevation">@dimen/uci_card_elevation</item>
+        <item name="cardBackgroundColor">@color/uci_surface_container</item>
+        <item name="strokeColor">?attr/colorOutlineVariant</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
+
+    <!--
+        A property listing row (list, related properties, and their shared
+        skeleton). Unlike the generic card above, this one must stand out from
+        `uci_background` using elevation alone: a white background in light
+        mode, no stroke, so the shadow is the only separator. Kept as its own
+        style rather than changing Widget.Uci.Card in place, because that base
+        style is also used by the detail screen's map card, which was not part
+        of this request and keeps its container colour and outline.
+    -->
+    <style name="Widget.Uci.Card.Property" parent="Widget.Uci.Card">
+        <item name="cardBackgroundColor">@color/uci_property_card_background</item>
+        <item name="strokeWidth">0dp</item>
+    </style>
+
+    <!-- ================= Text ================= -->
+    <style name="TextAppearance.Uci.Title" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="TextAppearance.Uci.Price" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Uci.PricePerMeter" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+    </style>
+
+    <style name="TextAppearance.Uci.Facts" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+    </style>
+
+    <style name="TextAppearance.Uci.SectionTitle" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Uci.Body" parent="TextAppearance.Material3.BodyLarge">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="TextAppearance.Uci.Label" parent="TextAppearance.Material3.LabelLarge">
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+    </style>
+
+    <!-- ================= Buttons ================= -->
+    <!--
+        `minWidth`/`minHeight` at 48dp, not the icon size: an icon button whose
+        bounds match its 24dp drawable fails the accessibility scanner and is
+        genuinely hard to hit.
+    -->
+    <style name="Widget.Uci.IconButton" parent="Widget.Material3.Button.IconButton">
+        <item name="android:minWidth">@dimen/uci_touch_target_min</item>
+        <item name="android:minHeight">@dimen/uci_touch_target_min</item>
+        <item name="iconSize">@dimen/uci_icon_size</item>
+        <item name="iconTint">?attr/colorOnSurfaceVariant</item>
+    </style>
+
+    <style name="Widget.Uci.IconButton.Favourite" parent="Widget.Uci.IconButton">
+        <item name="iconTint">@color/uci_favourite_icon_tint</item>
+    </style>
+
+    <style name="Widget.Uci.DetailAction" parent="Widget.Material3.Button.TonalButton.Icon">
+        <item name="android:minHeight">@dimen/uci_touch_target_min</item>
+        <item name="iconGravity">textStart</item>
+        <item name="android:textAppearance">@style/TextAppearance.Uci.Label</item>
+    </style>
+
+    <style name="Widget.Uci.TextButton" parent="Widget.Material3.Button.TextButton">
+        <item name="android:minHeight">@dimen/uci_touch_target_min</item>
+    </style>
+
+    <!-- ================= Containers ================= -->
+    <style name="Widget.Uci.UndoBanner" parent="">
+        <item name="android:background">?attr/colorSecondaryContainer</item>
+        <item name="android:padding">@dimen/uci_space_m</item>
+    </style>
+
+    <style name="Widget.Uci.Chip" parent="Widget.Material3.Chip.Assist">
+        <item name="android:minHeight">@dimen/uci_touch_target_min</item>
+        <item name="ensureMinTouchTargetSize">true</item>
+    </style>
+
+    <!--
+        Non-interactive fact chip ("133 m²", "3 habitaciones").
+
+        `ensureMinTouchTargetSize=false` is correct here and only here: the
+        accessibility minimum applies to *targets*, and these are labels. Keeping
+        it true would add 30dp of dead space per row.
+    -->
+    <style name="Widget.Uci.FactChip" parent="Widget.Material3.Chip.Assist">
+        <item name="android:clickable">false</item>
+        <item name="android:focusable">false</item>
+        <item name="android:checkable">false</item>
+        <item name="android:importantForAccessibility">no</item>
+        <item name="ensureMinTouchTargetSize">false</item>
+        <item name="chipIconSize">@dimen/uci_icon_size_small</item>
+        <item name="chipIconTint">?attr/colorOnSurfaceVariant</item>
+        <item name="chipMinHeight">32dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.Uci.Facts</item>
+    </style>
+
+</resources>

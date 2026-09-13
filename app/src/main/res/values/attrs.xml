@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--
+        Attributes for UciSkeletonView. Declared rather than hardcoded so a
+        skeleton layout is readable at a glance: shape + radius describe what is
+        being faked (a line of text, an avatar, an image block).
+    -->
+    <declare-styleable name="UciSkeletonView">
+        <attr name="uciSkeletonShape" format="enum">
+            <enum name="rectangle" value="0" />
+            <enum name="line" value="1" />
+            <enum name="circle" value="2" />
+        </attr>
+        <attr name="uciSkeletonCornerRadius" format="dimension" />
+    </declare-styleable>
+
+</resources>

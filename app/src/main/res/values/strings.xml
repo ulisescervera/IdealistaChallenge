@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Default locale: Spanish. English lives in values-en/.
+
+    Conventions:
+      * uci_a11y_*  -> content descriptions and state descriptions. Never shown
+                       on screen; written as a sentence a screen reader can read
+                       out loud, ending without a full stop.
+      * Plurals are real <plurals>, not "%d elemento(s)".
+      * No string is concatenated in code. Anything with a variable part is a
+        format string, because word order changes between languages.
+-->
+<resources>
+
+    <!-- Brand name: never translated, so `MissingTranslation` does not fire. -->
+    <string name="app_name" translatable="false">Ulises-Cervera-Idealista</string>
+
+    <!-- ===================== Navigation ===================== -->
+    <string name="uci_tab_list">Inmuebles</string>
+    <string name="uci_tab_favourites">Favoritos</string>
+
+    <!-- ===================== Property list ===================== -->
+    <string name="uci_list_title">Inmuebles</string>
+    <string name="uci_list_empty_title">No hay inmuebles</string>
+    <string name="uci_list_empty_body">Cuando haya inmuebles disponibles aparecerán aquí.</string>
+    <string name="uci_list_all_discarded_title">Has descartado todos los inmuebles</string>
+    <string name="uci_list_all_discarded_body">Restaura alguno para volver a verlo en el listado.</string>
+    <string name="uci_list_error_title">No hemos podido cargar los inmuebles</string>
+    <!--
+        The button exists; what it opens does not yet — there is no
+        "all properties on a map" screen in the app. Tapping it is
+        intentionally a no-op today (see PropertyListFragment.ListMenuProvider).
+    -->
+    <string name="uci_list_action_map">Ver mapa</string>
+    <string name="uci_list_action_filter">Filtros</string>
+    <string name="uci_list_filtered_empty_title">Ningún inmueble coincide</string>
+    <string name="uci_list_filtered_empty_body">Prueba a quitar algún filtro para ver más resultados.</string>
+    <string name="uci_action_retry">Reintentar</string>
+    <string name="uci_action_clear_filters">Quitar filtros</string>
+
+    <!-- ===================== Filter sheet ===================== -->
+    <string name="uci_filters_title">Filtros</string>
+    <string name="uci_filters_any">Cualquiera</string>
+    <string name="uci_filters_property_type">Tipo de vivienda</string>
+    <string name="uci_filters_operation">Compra o alquiler</string>
+    <string name="uci_filters_operation_sale">Compra</string>
+    <string name="uci_filters_operation_rent">Alquiler</string>
+    <string name="uci_filters_price">Precio</string>
+    <string name="uci_filters_size">Tamaño (m²)</string>
+    <string name="uci_filters_from">Desde</string>
+    <string name="uci_filters_to">Hasta</string>
+    <string name="uci_filters_rooms">Habitaciones</string>
+    <string name="uci_filters_bathrooms">Baños</string>
+    <string name="uci_filters_energy_certification">Certificado energético</string>
+    <string name="uci_filters_status">Estado</string>
+    <string name="uci_filters_status_new">Nuevo</string>
+    <string name="uci_filters_status_good">En buen estado</string>
+    <string name="uci_filters_status_to_renovate">Para reformar</string>
+    <string name="uci_filters_other_features">Otras características</string>
+    <string name="uci_filters_feature_lift">Ascensor</string>
+    <string name="uci_filters_feature_garage">Garaje</string>
+    <string name="uci_filters_clear">Limpiar</string>
+    <string name="uci_filters_apply">Aplicar</string>
+
+    <!-- Composed name: "{tipo} - {barrio} - {ciudad}" -->
+    <string name="uci_property_title_full">%1$s - %2$s - %3$s</string>
+    <string name="uci_property_title_two_parts">%1$s - %2$s</string>
+
+    <string name="uci_property_type_flat">Piso</string>
+    <string name="uci_property_type_duplex">Dúplex</string>
+    <string name="uci_property_type_penthouse">Ático</string>
+    <string name="uci_property_type_studio">Estudio</string>
+    <string name="uci_property_type_chalet">Chalet</string>
+    <string name="uci_property_type_country_house">Casa rural</string>
+    <string name="uci_property_type_house">Casa</string>
+    <string name="uci_property_type_room">Habitación</string>
+    <string name="uci_property_type_garage">Garaje</string>
+    <string name="uci_property_type_office">Oficina</string>
+    <string name="uci_property_type_premises">Local</string>
+    <string name="uci_property_type_unknown">Inmueble</string>
+
+    <!-- Prices. The suffix comes from the API ("€", "€/mes"). -->
+    <string name="uci_price_format">%1$s %2$s</string>
+    <string name="uci_price_per_square_meter_sale">%1$s €/m²</string>
+    <string name="uci_price_per_square_meter_rent">%1$s €/m²/mes</string>
+    <string name="uci_price_unavailable">Precio a consultar</string>
+
+    <!-- Facts row -->
+    <string name="uci_fact_size">%1$s m²</string>
+    <plurals name="uci_fact_rooms">
+        <item quantity="one">%d habitación</item>
+        <item quantity="other">%d habitaciones</item>
+    </plurals>
+    <plurals name="uci_fact_bathrooms">
+        <item quantity="one">%d baño</item>
+        <item quantity="other">%d baños</item>
+    </plurals>
+    <string name="uci_fact_floor_numbered">%1$dª planta</string>
+    <string name="uci_fact_floor_ground">Planta baja</string>
+    <string name="uci_fact_floor_basement">Sótano</string>
+    <string name="uci_fact_floor_mezzanine">Entreplanta</string>
+    <string name="uci_fact_floor_raw">Planta %1$s</string>
+    <string name="uci_fact_lift_yes">Con ascensor</string>
+    <string name="uci_fact_lift_no">Sin ascensor</string>
+    <string name="uci_fact_garage_included">Garaje incluido</string>
+    <string name="uci_fact_garage_extra">Garaje aparte</string>
+    <string name="uci_fact_garage_no">Sin garaje</string>
+    <string name="uci_fact_exterior">Exterior</string>
+    <string name="uci_fact_interior">Interior</string>
+
+    <!-- Row actions -->
+    <string name="uci_action_favourite_add">Añadir a favoritos</string>
+    <string name="uci_action_favourite_remove">Quitar de favoritos</string>
+    <string name="uci_action_discard">Borrar del listado</string>
+    <string name="uci_action_restore">Restaurar</string>
+    <string name="uci_action_share">Compartir</string>
+    <string name="uci_action_close">Cerrar</string>
+
+    <!-- Undo banner -->
+    <string name="uci_undo_single">Has borrado un inmueble del listado.</string>
+    <plurals name="uci_undo_multiple">
+        <item quantity="one">Has borrado %d inmueble del listado.</item>
+        <item quantity="other">Has borrado %d inmuebles del listado.</item>
+    </plurals>
+    <string name="uci_undo_action_single">Restaurar</string>
+    <string name="uci_undo_action_multiple">Ver borrados</string>
+
+    <!-- Discarded sheet -->
+    <string name="uci_discarded_title">Inmuebles borrados</string>
+    <plurals name="uci_discarded_subtitle">
+        <item quantity="one">%d inmueble borrado</item>
+        <item quantity="other">%d inmuebles borrados</item>
+    </plurals>
+    <string name="uci_discarded_restore_all">Restaurar todos</string>
+    <string name="uci_discarded_empty">No hay inmuebles borrados.</string>
+    <plurals name="uci_discarded_restored_feedback">
+        <item quantity="one">Se ha restaurado %d inmueble.</item>
+        <item quantity="other">Se han restaurado %d inmuebles.</item>
+    </plurals>
+
+    <!-- ===================== Detail ===================== -->
+    <string name="uci_detail_title">Detalle del inmueble</string>
+    <string name="uci_detail_comment_title">Comentario del anunciante</string>
+    <string name="uci_detail_comment_expand">Leer más</string>
+    <string name="uci_detail_comment_collapse">Leer menos</string>
+    <string name="uci_detail_characteristics_title">Características</string>
+    <string name="uci_detail_related_title">Inmuebles relacionados</string>
+    <string name="uci_detail_related_empty">No hay inmuebles relacionados.</string>
+    <string name="uci_detail_map_title">Ubicación</string>
+    <string name="uci_full_map_title">Mapa</string>
+    <string name="uci_a11y_open_full_map">Abrir mapa a pantalla completa</string>
+    <string name="uci_detail_favourited_on">Guardado en favoritos el %1$s</string>
+    <string name="uci_detail_error_title">No hemos podido cargar el detalle</string>
+    <string name="uci_detail_error_not_found">Este inmueble ya no está disponible.</string>
+    <string name="uci_detail_back_to_list">Volver al listado</string>
+
+    <string name="uci_characteristic_community_costs">Gastos de comunidad</string>
+    <string name="uci_characteristic_community_costs_value">%1$s €/mes</string>
+    <string name="uci_characteristic_constructed_area">Superficie construida</string>
+    <string name="uci_characteristic_rooms">Habitaciones</string>
+    <string name="uci_characteristic_bathrooms">Baños</string>
+    <string name="uci_characteristic_floor">Planta</string>
+    <string name="uci_characteristic_lift">Ascensor</string>
+    <string name="uci_characteristic_box_room">Trastero</string>
+    <string name="uci_characteristic_duplex">Dúplex</string>
+    <string name="uci_characteristic_exterior">Orientación</string>
+    <string name="uci_characteristic_furniture">Mobiliario</string>
+    <string name="uci_characteristic_flat_location">Situación en el edificio</string>
+    <string name="uci_characteristic_status">Estado</string>
+    <string name="uci_characteristic_energy">Certificado energético</string>
+    <string name="uci_characteristic_energy_value">Consumo %1$s · Emisiones %2$s</string>
+    <string name="uci_characteristic_agency_bank">Anunciado por una entidad bancaria</string>
+    <string name="uci_characteristic_modified">Última actualización</string>
+    <string name="uci_value_yes">Sí</string>
+    <string name="uci_value_no">No</string>
+    <string name="uci_value_unknown">Sin datos</string>
+    <string name="uci_value_furniture_unknown">Sin especificar</string>
+    <string name="uci_value_flat_location_internal">Interior</string>
+    <string name="uci_value_flat_location_external">Exterior</string>
+    <string name="uci_value_status_good">Buen estado</string>
+    <string name="uci_value_status_renew">A reformar</string>
+    <string name="uci_value_status_new">Obra nueva</string>
+
+    <!-- Share -->
+    <string name="uci_share_body">%1$s\n%2$s\n%3$s</string>
+    <string name="uci_share_chooser">Compartir inmueble</string>
+
+    <!-- ===================== Image viewer ===================== -->
+    <string name="uci_viewer_title">Fotos del inmueble</string>
+    <string name="uci_viewer_grid_hint">Toca una foto para verla a pantalla completa.</string>
+    <string name="uci_viewer_page_indicator">%1$d / %2$d</string>
+
+    <!-- ===================== Favourites ===================== -->
+    <string name="uci_favourites_title">Favoritos</string>
+    <string name="uci_favourites_empty_title">Aún no tienes favoritos</string>
+    <string name="uci_favourites_empty_body">Pulsa el corazón en cualquier inmueble para guardarlo aquí.</string>
+    <plurals name="uci_favourites_count">
+        <item quantity="one">%d favorito</item>
+        <item quantity="other">%d favoritos</item>
+    </plurals>
+
+    <!-- ===================== Errors ===================== -->
+    <string name="uci_error_no_connectivity">Sin conexión. Revisa tu red e inténtalo de nuevo.</string>
+    <string name="uci_error_timeout">La conexión ha tardado demasiado.</string>
+    <string name="uci_error_http">El servidor ha respondido con un error (%1$d).</string>
+    <string name="uci_error_serialization">Hemos recibido datos que no entendemos.</string>
+    <string name="uci_error_local">No hemos podido acceder a los datos guardados.</string>
+    <string name="uci_error_unexpected">Algo ha ido mal.</string>
+
+    <!-- ===================== Accessibility ===================== -->
+    <string name="uci_a11y_property_card">%1$s. %2$s. %3$s</string>
+    <string name="uci_a11y_carousel">Carrusel de fotos, %1$d fotos. Desliza para verlas</string>
+    <string name="uci_a11y_carousel_image">Foto %1$d de %2$d: %3$s</string>
+    <string name="uci_a11y_carousel_image_untagged">Foto %1$d de %2$d del inmueble</string>
+    <string name="uci_a11y_carousel_map_page">Última página del carrusel: mapa con la ubicación del inmueble</string>
+    <string name="uci_a11y_open_viewer">Abrir el visor de fotos a pantalla completa</string>
+    <string name="uci_a11y_favourite_state_on">En favoritos</string>
+    <string name="uci_a11y_favourite_state_off">No está en favoritos</string>
+    <string name="uci_a11y_loading">Cargando inmuebles</string>
+    <string name="uci_a11y_loading_detail">Cargando el detalle del inmueble</string>
+    <string name="uci_a11y_loading_related">Cargando inmuebles relacionados</string>
+    <string name="uci_a11y_map">Mapa centrado en %1$s</string>
+    <string name="uci_a11y_map_generic">Mapa con la ubicación del inmueble</string>
+    <string name="uci_a11y_immersive_on">Modo pantalla completa activado. Toca de nuevo para salir</string>
+    <string name="uci_a11y_immersive_off">Modo pantalla completa desactivado</string>
+    <string name="uci_a11y_discarded_row">%1$s, %2$s. Pulsa para restaurarlo</string>
+    <string name="uci_a11y_property_photo_placeholder">Este inmueble no tiene fotos</string>
+    <string name="uci_a11y_page_indicator">Foto %1$d de %2$d</string>
+
+</resources>
