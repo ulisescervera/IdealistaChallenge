@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    One photo page.
+
+    `scaleType="centerCrop"` plus a fixed parent height: property photos come in
+    several aspect ratios and letterboxing them would make the list look broken.
+
+    The contentDescription is set in code from the backend's own `localizedName`
+    ("Salón", "Cocina") plus the position, because "photo of a living room" is
+    only useful if you also know it is photo 3 of 7.
+-->
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/uciCarouselImage"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/uci_skeleton_base"
+    android:scaleType="centerCrop"
+    tools:ignore="ContentDescription"
+    tools:src="@drawable/bg_uci_image_placeholder" />

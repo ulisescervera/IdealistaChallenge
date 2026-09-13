@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Pill behind the "3 / 10" carousel counter. A solid 70% black scrim rather
+    than a translucent tint of the theme colour: the counter sits on top of
+    arbitrary photography, and only a fixed dark backdrop guarantees the 4.5:1
+    contrast with the white label in both light and dark mode.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#B3000000" />
+    <corners android:radius="12dp" />
+</shape>

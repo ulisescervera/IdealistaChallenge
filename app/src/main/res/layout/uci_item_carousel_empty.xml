@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Shown when a property has no photos. Announced, so the absence is explicit. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/uci_skeleton_base">
+
+    <ImageView
+        android:id="@+id/uciCarouselEmptyIcon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:contentDescription="@string/uci_a11y_property_photo_placeholder"
+        android:src="@drawable/ic_uci_photo" />
+
+</FrameLayout>

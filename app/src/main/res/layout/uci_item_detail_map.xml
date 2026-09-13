@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Interactive map row. Reached by scrolling, by tapping the map page of the
+    carousel, or directly when the user arrived from the list's "ver en el mapa"
+    button (`focusOnMap = true`).
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/uciDetailMapRow"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/uci_space_l"
+    android:paddingTop="@dimen/uci_space_xl">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/uci_detail_map_title"
+        android:textAppearance="@style/TextAppearance.Uci.SectionTitle" />
+
+    <com.google.android.material.card.MaterialCardView
+        style="@style/Widget.Uci.Card"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/uci_map_height"
+        android:layout_marginTop="@dimen/uci_space_s">
+
+        <org.osmdroid.views.MapView
+            android:id="@+id/uciDetailMap"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:importantForAccessibility="no" />
+
+        <!--
+            The map itself is not accessible to a screen reader (a raster of
+            tiles is not), so this invisible overlay carries the description of
+            where the property is. It also doubles as the tap target that opens
+            the full-screen map: the MapView underneath already consumes
+            touches for pan/zoom (`configureInteractive`), so a click listener
+            on the MapView itself would never fire.
+        -->
+        <View
+            android:id="@+id/uciDetailMapDescription"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:focusable="true"
+            android:importantForAccessibility="yes" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/uciDetailMapAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/uci_space_s"
+        android:textAppearance="@style/TextAppearance.Uci.Facts"
+        tools:text="calle de Lagasca, Castellana, Madrid" />
+
+</LinearLayout>

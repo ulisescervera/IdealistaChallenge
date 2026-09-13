@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    One "label — value" pair of the characteristics table.
+
+    A single row is one accessibility node with a "label, value" description,
+    built in code: two separate TextViews make TalkBack read "Ascensor" and
+    "Sí" as unrelated utterances.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/uciCharacteristicRow"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:baselineAligned="true"
+    android:focusable="true"
+    android:minHeight="40dp"
+    android:orientation="horizontal"
+    android:paddingVertical="@dimen/uci_space_xs">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/uciCharacteristicLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:importantForAccessibility="no"
+        android:textAppearance="@style/TextAppearance.Uci.Facts"
+        tools:text="Ascensor" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/uciCharacteristicValue"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/uci_space_m"
+        android:layout_weight="1"
+        android:importantForAccessibility="no"
+        android:textAlignment="viewEnd"
+        android:textAppearance="@style/TextAppearance.Uci.Body"
+        tools:text="Sí" />
+
+</LinearLayout>

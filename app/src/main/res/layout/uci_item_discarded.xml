@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    A row of the "borrados" sheet.
+
+    The whole row is the restore target, and the trailing icon is decorative:
+    two overlapping tap targets on a 56dp row is how users end up restoring the
+    wrong property. `uci_a11y_discarded_row` carries the click hint.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/uciDiscardedRow"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center_vertical"
+    android:minHeight="@dimen/uci_touch_target_min"
+    android:orientation="horizontal"
+    android:paddingHorizontal="@dimen/uci_space_l"
+    android:paddingVertical="@dimen/uci_space_s">
+
+    <ImageView
+        android:id="@+id/uciDiscardedThumbnail"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:background="@drawable/bg_uci_image_placeholder"
+        android:importantForAccessibility="no"
+        android:scaleType="centerCrop" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/uci_space_m"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/uciDiscardedTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:importantForAccessibility="no"
+            android:maxLines="2"
+            android:textAppearance="@style/TextAppearance.Uci.Title"
+            tools:text="Piso - Castellana - Madrid" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/uciDiscardedPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:importantForAccessibility="no"
+            android:textAppearance="@style/TextAppearance.Uci.PricePerMeter"
+            tools:text="1.195.000 €" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="@dimen/uci_icon_size"
+        android:layout_height="@dimen/uci_icon_size"
+        android:layout_marginStart="@dimen/uci_space_s"
+        android:importantForAccessibility="no"
+        android:src="@drawable/ic_uci_restore"
+        app:tint="?attr/colorPrimary" />
+
+</LinearLayout>

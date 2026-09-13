@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Item ids MUST match the destination ids in uci_nav_graph.xml: that is how
+    `NavigationUI.setupWithNavController` pairs a tab with a graph destination
+    and gets back-stack-per-tab for free.
+-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/uci_destination_property_list"
+        android:icon="@drawable/ic_uci_home"
+        android:title="@string/uci_tab_list" />
+
+    <item
+        android:id="@+id/uci_destination_favourites"
+        android:icon="@drawable/ic_uci_favourite"
+        android:title="@string/uci_tab_favourites" />
+
+</menu>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Reusable carousel block: pager + "3 / 7" counter.
+
+    Included by the list row, the detail header and the related-properties row,
+    so the counter position, the scrim and the accessibility wiring exist once.
+-->
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/uciImageCarousel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Gradient so the counter stays legible over bright photography. -->
+    <View
+        android:id="@+id/uciCarouselScrim"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/bg_uci_carousel_scrim"
+        android:importantForAccessibility="no" />
+
+    <!--
+        Bottom-right image counter, as specified. `importantForAccessibility=no`
+        because the same information is already inside each page's
+        contentDescription ("Foto 3 de 7"); announcing it twice is noise.
+    -->
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/uciCarouselIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/uci_space_s"
+        android:background="@drawable/bg_uci_page_indicator"
+        android:importantForAccessibility="no"
+        android:paddingHorizontal="@dimen/uci_space_s"
+        android:paddingVertical="@dimen/uci_space_xxs"
+        android:textAppearance="@style/TextAppearance.Uci.Label"
+        android:textColor="@android:color/white"
+        tools:text="3 / 7" />
+
+</merge>

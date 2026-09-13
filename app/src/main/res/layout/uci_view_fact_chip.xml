@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Inflated per fact by PropertyListAdapter. A layout rather than
+    `Chip(context)` because a chip built in code with the default attrs comes out
+    as an *action* chip: clickable, 48dp tall and focusable, which is wrong for a
+    label and adds a spurious TalkBack stop per fact.
+-->
+<com.google.android.material.chip.Chip xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.Uci.FactChip"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:text="133 m²" />

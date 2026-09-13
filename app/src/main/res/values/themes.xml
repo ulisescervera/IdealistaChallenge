@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Base theme is Material 3 DayNight. Light and dark are NOT two variants of
+    one theme: they share this file and diverge only through values-night/colors.xml,
+    which means a new colour cannot be added to one scheme and forgotten in the
+    other without an unresolved-reference error.
+
+    `Theme.Uci.Viewer` is separate because the Compose image viewer needs a
+    translucent status bar and an unrestricted orientation, which would be wrong
+    everywhere else.
+-->
+<resources>
+
+    <style name="Theme.Uci" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/uci_primary</item>
+        <item name="colorOnPrimary">@color/uci_on_primary</item>
+        <item name="colorPrimaryContainer">@color/uci_primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/uci_on_primary_container</item>
+
+        <item name="colorSecondary">@color/uci_secondary</item>
+        <item name="colorOnSecondary">@color/uci_on_secondary</item>
+        <item name="colorSecondaryContainer">@color/uci_secondary_container</item>
+        <item name="colorOnSecondaryContainer">@color/uci_on_secondary_container</item>
+
+        <item name="colorTertiary">@color/uci_tertiary</item>
+        <item name="colorOnTertiary">@color/uci_on_tertiary</item>
+        <item name="colorTertiaryContainer">@color/uci_tertiary_container</item>
+        <item name="colorOnTertiaryContainer">@color/uci_on_tertiary_container</item>
+
+        <item name="colorError">@color/uci_error</item>
+        <item name="colorOnError">@color/uci_on_error</item>
+        <item name="colorErrorContainer">@color/uci_error_container</item>
+        <item name="colorOnErrorContainer">@color/uci_on_error_container</item>
+
+        <item name="android:colorBackground">@color/uci_background</item>
+        <item name="colorOnBackground">@color/uci_on_background</item>
+        <item name="colorSurface">@color/uci_surface</item>
+        <item name="colorOnSurface">@color/uci_on_surface</item>
+        <item name="colorSurfaceVariant">@color/uci_surface_variant</item>
+        <item name="colorOnSurfaceVariant">@color/uci_on_surface_variant</item>
+        <!-- Used directly by uci_activity_main.xml and Widget.Uci.Card; without
+             this item it would fall back to Material's own palette and the app
+             would effectively have a third, unverified set of surfaces. -->
+        <item name="colorSurfaceContainer">@color/uci_surface_container</item>
+        <item name="colorOutline">@color/uci_outline</item>
+        <item name="colorOutlineVariant">@color/uci_outline_variant</item>
+        <item name="colorSurfaceInverse">@color/uci_inverse_surface</item>
+        <item name="colorOnSurfaceInverse">@color/uci_inverse_on_surface</item>
+
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">?attr/colorSurface</item>
+        <item name="android:windowBackground">?android:attr/colorBackground</item>
+
+        <!-- Shared element transitions between the list and the detail need the
+             activity to opt in to content transitions. -->
+        <item name="android:windowActivityTransitions">true</item>
+
+        <item name="bottomNavigationStyle">@style/Widget.Uci.BottomNavigation</item>
+        <item name="materialCardViewStyle">@style/Widget.Uci.Card</item>
+    </style>
+
+    <!-- Immersive photo viewer: black backdrop, rotation allowed. -->
+    <style name="Theme.Uci.Viewer" parent="Theme.Uci">
+        <item name="android:windowBackground">@color/uci_viewer_backdrop</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+    </style>
+
+    <!-- Splash-free launch theme: keeps the first frame from flashing white in
+         dark mode. -->
+    <style name="Theme.Uci.Launcher" parent="Theme.Uci">
+        <item name="android:windowBackground">?android:attr/colorBackground</item>
+    </style>
+
+</resources>

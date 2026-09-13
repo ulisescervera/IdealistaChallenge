@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    The whole navigation of UCI, in one graph.
+
+    Destination ids in the two bottom tabs match the item ids of
+    menu/uci_bottom_navigation.xml on purpose: `setupWithNavController` pairs
+    them by id and then maintains a separate back stack per tab.
+
+    Deep links live here and only here; `<nav-graph>` in the manifest turns them
+    into intent filters at build time.
+
+    ### Transition animations
+    Every plain `<action>` gets the Navigation library's own built-in
+    `nav_default_*_anim` animators (a short cross-fade, both ways) EXCEPT:
+
+    - `uci_action_list_to_detail`. That one already has a real transition —
+      a `MaterialContainerTransform` set as `sharedElementEnterTransition` on
+      `PropertyDetailFragment`, morphing the tapped card into the gallery.
+      Layering a fade on top would fight it, and a `FragmentTransaction`
+      prefers the fragment's own Transition-framework transitions over the
+      Animator resources set here the moment any are declared, so it would
+      mostly be dead configuration anyway.
+    - `uci_action_list_to_discarded`. `<dialog>` destinations go through
+      `DialogFragmentNavigator`, which does not read `enterAnim`/`exitAnim`
+      at all — the sheet's slide-up already comes from
+      `BottomSheetDialogFragment` itself. Setting them here would silently do
+      nothing.
+-->
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/uci_nav_graph"
+    app:startDestination="@id/uci_destination_property_list">
+
+    <!-- ==================== Tab 1: property list (XML views) ==================== -->
+    <fragment
+        android:id="@+id/uci_destination_property_list"
+        android:name="com.ulisescervera.uci.feature.list.PropertyListFragment"
+        android:label="@string/uci_list_title"
+        tools:layout="@layout/uci_fragment_property_list">
+
+        <action
+            android:id="@+id/uci_action_list_to_detail"
+            app:destination="@id/uci_destination_property_detail" />
+
+        <action
+            android:id="@+id/uci_action_list_to_discarded"
+            app:destination="@id/uci_destination_discarded_sheet" />
+    </fragment>
+
+    <!--
+        Filter sheet. No `<argument>` declared on purpose: the current filters
+        travel as a plain Bundle (see PropertyFilters.toBundle/fromBundle), not
+        through SafeArgs, which has no clean way to express a `Set<Int>`.
+    -->
+    <dialog
+        android:id="@+id/uci_destination_filters_sheet"
+        android:name="com.ulisescervera.uci.feature.list.filter.FiltersSheetFragment"
+        android:label="@string/uci_filters_title"
+        tools:layout="@layout/uci_fragment_filters_sheet" />
+
+    <!-- ==================== Tab 2: favourites (Compose) ==================== -->
+    <fragment
+        android:id="@+id/uci_destination_favourites"
+        android:name="com.ulisescervera.uci.feature.favourites.FavouritesFragment"
+        android:label="@string/uci_favourites_title">
+
+        <action
+            android:id="@+id/uci_action_favourites_to_detail"
+            app:destination="@id/uci_destination_property_detail"
+            app:enterAnim="@animator/nav_default_enter_anim"
+            app:exitAnim="@animator/nav_default_exit_anim"
+            app:popEnterAnim="@animator/nav_default_pop_enter_anim"
+            app:popExitAnim="@animator/nav_default_pop_exit_anim" />
+    </fragment>
+
+    <!-- ==================== Detail (XML views) ==================== -->
+    <fragment
+        android:id="@+id/uci_destination_property_detail"
+        android:name="com.ulisescervera.uci.feature.detail.PropertyDetailFragment"
+        android:label="@string/uci_detail_title"
+        tools:layout="@layout/uci_fragment_property_detail">
+
+        <argument
+            android:name="propertyId"
+            app:argType="string" />
+
+        <!--
+            Set by the "see on map" button in the list: the detail opens already
+            scrolled to the map row instead of at the top.
+        -->
+        <argument
+            android:name="focusOnMap"
+            android:defaultValue="false"
+            app:argType="boolean" />
+
+        <!--
+            Which carousel image was tapped, so the shared-element transition
+            lands on the same photo and the detail carousel starts there.
+        -->
+        <argument
+            android:name="initialImageIndex"
+            android:defaultValue="0"
+            app:argType="integer" />
+
+        <action
+            android:id="@+id/uci_action_detail_to_image_viewer"
+            app:destination="@id/uci_destination_image_viewer"
+            app:enterAnim="@animator/nav_default_enter_anim"
+            app:exitAnim="@animator/nav_default_exit_anim"
+            app:popEnterAnim="@animator/nav_default_pop_enter_anim"
+            app:popExitAnim="@animator/nav_default_pop_exit_anim" />
+
+        <!-- Self-navigation: tapping a related property opens its own detail. -->
+        <action
+            android:id="@+id/uci_action_detail_to_detail"
+            app:destination="@id/uci_destination_property_detail"
+            app:enterAnim="@animator/nav_default_enter_anim"
+            app:exitAnim="@animator/nav_default_exit_anim"
+            app:popEnterAnim="@animator/nav_default_pop_enter_anim"
+            app:popExitAnim="@animator/nav_default_pop_exit_anim" />
+
+        <action
+            android:id="@+id/uci_action_detail_to_full_map"
+            app:destination="@id/uci_destination_full_map"
+            app:enterAnim="@animator/nav_default_enter_anim"
+            app:exitAnim="@animator/nav_default_exit_anim"
+            app:popEnterAnim="@animator/nav_default_pop_enter_anim"
+            app:popExitAnim="@animator/nav_default_pop_exit_anim" />
+
+        <deepLink
+            android:id="@+id/uci_deep_link_scheme"
+            app:uri="uci://property/{propertyId}" />
+
+        <deepLink
+            android:id="@+id/uci_deep_link_https"
+            app:uri="https://ulisescervera.dev/uci/property/{propertyId}" />
+
+        <!--
+            Deep link that lands straight on the map. `focusOnMap` is matched
+            from the query string, which is why it needs no separate argument
+            declaration.
+        -->
+        <deepLink
+            android:id="@+id/uci_deep_link_map"
+            app:uri="uci://property/{propertyId}/map?focusOnMap=true" />
+    </fragment>
+
+    <!-- ==================== Image viewer (Compose) ==================== -->
+    <fragment
+        android:id="@+id/uci_destination_image_viewer"
+        android:name="com.ulisescervera.uci.feature.viewer.ImageViewerFragment"
+        android:label="@string/uci_viewer_title">
+
+        <argument
+            android:name="propertyId"
+            app:argType="string" />
+
+        <argument
+            android:name="initialImageIndex"
+            android:defaultValue="0"
+            app:argType="integer" />
+    </fragment>
+
+    <!-- ==================== Full-screen map (XML views) ==================== -->
+    <fragment
+        android:id="@+id/uci_destination_full_map"
+        android:name="com.ulisescervera.uci.feature.map.FullMapFragment"
+        android:label="@string/uci_full_map_title"
+        tools:layout="@layout/uci_fragment_full_map">
+
+        <argument
+            android:name="latitude"
+            app:argType="float" />
+
+        <argument
+            android:name="longitude"
+            app:argType="float" />
+
+        <argument
+            android:name="addressLine"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+
+    <!-- ==================== Discarded items sheet ==================== -->
+    <!--
+        A `<dialog>` destination, not a `<fragment>`: the sheet must not replace
+        the list underneath it, and Navigation only keeps the previous
+        destination visible for dialog destinations.
+    -->
+    <dialog
+        android:id="@+id/uci_destination_discarded_sheet"
+        android:name="com.ulisescervera.uci.feature.discarded.DiscardedPropertiesSheetFragment"
+        android:label="@string/uci_discarded_title"
+        tools:layout="@layout/uci_fragment_discarded_sheet" />
+
+</navigation>
