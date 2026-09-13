@@ -224,6 +224,24 @@ Cosas que ya han costado tiempo. Léelas antes de tocar la zona correspondiente.
 - **`ViewPager2` dentro de `RecyclerView`.** Todas las filas comparten el mismo id, y el framework
   lanza *"Page can only be offset by a positive amount"* al restaurar estado. Solución en
   `PropertyCarouselView.init`: `isSaveEnabled = false`.
+- **Listener registrado en `init` para una vista que vive dentro de un `RecyclerView`.** Una fila
+  reciclada se desengancha (`onDetachedFromWindow`) y vuelve a engancharse (`onAttachedToWindow`)
+  cada vez que sale y vuelve a entrar en pantalla; un `init {}` solo corre una vez, en la
+  construcción de la vista. Registrar un callback ahí y desregistrarlo solo en
+  `onDetachedFromWindow` deja el callback muerto para siempre tras el primer reciclado —
+  `PropertyCarouselView.pageChangeCallback` lo sufrió exactamente así: el indicador funcionaba a la
+  primera y dejaba de actualizarse en cuanto la fila se reciclaba una vez. El registro tiene que
+  vivir en `onAttachedToWindow`, simétrico con `onDetachedFromWindow`, no en `init`.
+- **Padding de inset sobre una altura fija.** Un `Toolbar` con
+  `android:layout_height="?attr/actionBarSize"` y, además, `updatePadding(top = statusBarInset)`
+  en código (o `fitsSystemWindows="true"`) comprime el título y la flecha de retroceso dentro de
+  esa altura fija en lugar de crecer para acomodarlos: en un emulador con status bar bajo pasa
+  desapercibido, pero en un dispositivo real con status bar más alto (cámara en agujero, Dynamic
+  Island-style, etc.) el contenido queda recortado o directamente invisible. La combinación
+  correcta es `layout_height="wrap_content"` + `android:minHeight="?attr/actionBarSize"`, para que
+  el padding del inset añada altura en vez de robarla. Afecta a cualquier `Toolbar` que combine
+  altura fija con relleno de insets: `uciToolbar` (`MainActivity`), `uciDetailToolbar` y
+  `uciFullMapToolbar`.
 - **Rebind completo de una fila.** Sin *change payload*, marcar un favorito rebinda toda la fila y
   el carrusel salta a la foto 1. Ver `PropertyDiffCallback.getChangePayload`.
 - **`MapView` de osmdroid.** Posee un ejecutor de descarga de teselas. Hay que llamar a
