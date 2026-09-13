@@ -18,7 +18,6 @@ import com.ulisescervera.uci.domain.model.PropertyType
  * does. Filtering by them here would mean fetching the detail of every
  * visible property before the list can render a single row, which is exactly
  * the network-eager behaviour the offline-first repository exists to avoid.
- * Full reasoning in `docs/adr/0004-filtros-solo-sobre-datos-del-listado.md`.
  */
 data class PropertyFilters(
     val propertyType: PropertyType? = null,

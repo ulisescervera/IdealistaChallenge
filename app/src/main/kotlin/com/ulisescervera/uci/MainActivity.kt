@@ -28,9 +28,8 @@ import dagger.hilt.android.AndroidEntryPoint
  * ### Why the detail screen is not wired into this toolbar
  * [uciToolbar] is hidden while `PropertyDetailFragment` is the current
  * destination, which keeps its *own* transparent `MaterialToolbar` floating
- * over its full-bleed gallery instead. Full reasoning, and why the image
- * viewer is excluded for a different reason, in
- * `docs/adr/0003-un-toolbar-compartido-salvo-en-detalle.md`.
+ * over its full-bleed gallery instead. The image viewer is excluded for a
+ * different reason: it is a full-screen, chrome-less experience by design.
  *
  * ### Deep links
  * `NavHostFragment` consumes the launch intent automatically because

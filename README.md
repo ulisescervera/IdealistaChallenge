@@ -44,7 +44,6 @@ hace lo que hace. Un challenge de este tipo se lee más veces de las que se ejec
 proyecto está optimizado para ser leído:
 
 - cada decisión no obvia está comentada en el sitio donde se toma, no en un documento aparte;
-- las decisiones estructurales con alternativas defendibles están en `docs/adr/`;
 - los tests están escritos como especificación: el nombre dice la regla y el cuerpo la comprueba.
 
 Ejemplos de lo que eso significa en la práctica: el precio se toma de `priceInfo` y no de la raíz
@@ -189,11 +188,10 @@ Clean Architecture en tres módulos Gradle, con la dependencia apuntando siempre
 
 ### ¿Dónde viven los intents?
 
-El enunciado pide estudiarlo. La respuesta es **en `:app`**, y el razonamiento completo está en
-[`docs/adr/0001-donde-viven-los-intents-de-la-vista.md`](docs/adr/0001-donde-viven-los-intents-de-la-vista.md).
-Resumen: un intent es el nombre de un gesto de una pantalla concreta, transporta tipos de
-presentación (posición en el `RecyclerView`, índice de imagen para la transición compartida) y
-cambia cuando cambia el diseño, no cuando cambia el negocio. Los casos de uso sí son del dominio.
+El enunciado pide estudiarlo. La respuesta es **en `:app`**: un intent es el nombre de un gesto de
+una pantalla concreta, transporta tipos de presentación (posición en el `RecyclerView`, índice de
+imagen para la transición compartida) y cambia cuando cambia el diseño, no cuando cambia el
+negocio. Los casos de uso sí son del dominio.
 
 ### ¿Cuántos repositorios?
 
@@ -207,8 +205,7 @@ y aquí solo hay uno.
 La distinción caché/dato-de-usuario no se pierde: vive en el esquema (`property_flags` no tiene
 clave ajena a `properties`, así que un refresco no puede borrar un favorito) y en la
 implementación, donde `PropertyFlagStore` sigue siendo el único escritor de esa tabla. Cohesión en
-el borde, separación por detrás:
-[`docs/adr/0002-un-repositorio-por-agregado.md`](docs/adr/0002-un-repositorio-por-agregado.md).
+el borde, separación por detrás.
 
 ### Flujo de datos
 
@@ -452,6 +449,5 @@ Son limitaciones del challenge, no del wiring. Están listadas porque ocultarlas
 ## Documentación adicional
 
 - [`CLAUDE.md`](CLAUDE.md) — convenciones, metodología y formas de trabajar en este repo.
-- [`docs/adr/`](docs/adr/) — decisiones de arquitectura con sus alternativas descartadas.
 - [`.claude/skills/`](.claude/skills/) — nueve skills que generan cada tipo de artefacto del
   proyecto siguiendo estas convenciones.

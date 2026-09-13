@@ -4,8 +4,7 @@
     properties the list already has.
 
     `energyCertifications` and `statuses` are collected here but never change
-    what is visible — see `PropertyFilters`'s class doc and
-    docs/adr/0004-filtros-solo-sobre-datos-del-listado.md for why. Their chips
+    what is visible — see `PropertyFilters`'s class doc for why. Their chips
     stay in the UI because the brief asks for them explicitly, and disabling
     them silently would be more confusing than a documented no-op.
 -->

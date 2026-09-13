@@ -15,8 +15,6 @@ domain/src/main/kotlin/com/ulisescervera/uci/domain/
 
 Dos repositorios, no tres: `PropertyFlagRepository` existió y se absorbió en `PropertyRepository`
 porque partía el concepto "favorito" en dos contratos —se leía por uno y se escribía por el otro—.
-El razonamiento está en
-[`docs/adr/0002-un-repositorio-por-agregado.md`](../docs/adr/0002-un-repositorio-por-agregado.md).
 
 ---
 
@@ -43,9 +41,6 @@ Tres pruebas lo deciden:
 
 Dicho de otro modo: si esta app tuviera mañana una interfaz de voz o un companion de Wear OS,
 reutilizaría los 12 casos de uso íntegros y tiraría el 100 % de los intents.
-
-El razonamiento completo, con las alternativas descartadas, está en
-[`docs/adr/0001-donde-viven-los-intents-de-la-vista.md`](../docs/adr/0001-donde-viven-los-intents-de-la-vista.md).
 
 ---
 

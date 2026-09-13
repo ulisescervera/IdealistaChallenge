@@ -121,7 +121,7 @@ class PropertyFiltersTest {
     @Test
     fun `energy certification and status are collected but never filter`() {
         // Documented limitation: Property (the list model) carries neither
-        // field. See the class doc and docs/adr/0004.
+        // field. See the class doc.
         val filters = PropertyFilters(energyCertifications = setOf("A"), statuses = setOf("nuevo"))
 
         assertThat(filters.matches(AppFixtures.property("1"))).isTrue()

@@ -17,8 +17,7 @@ import kotlinx.coroutines.withContext
  * ### Why this is a class and not a repository
  * It used to implement a `PropertyFlagRepository` interface in `:domain`. That
  * interface is gone: splitting the contract meant "favourite" was read from one
- * repository and written to another, which is a seam in the wrong place (see
- * `docs/adr/0002-un-repositorio-por-agregado.md`).
+ * repository and written to another, which is a seam in the wrong place.
  *
  * What survives is the *implementation* split, and it earns its keep: flags are
  * the only data in UCI the user actually created, they are written with a clock

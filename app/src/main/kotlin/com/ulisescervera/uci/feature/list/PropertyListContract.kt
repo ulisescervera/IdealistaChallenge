@@ -13,8 +13,8 @@ import com.ulisescervera.uci.feature.list.filter.PropertyFilters
  * ([PropertyListIntent]), what the screen looks like ([PropertyListUiState]) and
  * what happens outside it ([PropertyListEffect]).
  *
- * Living in `:app` and not in `:domain` is a deliberate decision recorded in
- * `docs/adr/0001-donde-viven-los-intents-de-la-vista.md`.
+ * Living in `:app` and not in `:domain` is a deliberate decision: intents name a
+ * gesture on a specific screen and carry presentation types, not domain ones.
  */
 
 sealed interface PropertyListIntent : UiIntent {

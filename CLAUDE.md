@@ -62,12 +62,11 @@ debería fallar en revisión.
 | Un layout XML o un composable | `:app/res/layout/` o `:app/feature/<feature>/` | `/uci-crear-vista` |
 | Un test | junto al código, en `test/` o `androidTest/` | `/uci-crear-test` |
 
-Los intents viven en `:app`, no en `:domain`. El razonamiento está en
-`docs/adr/0001-donde-viven-los-intents-de-la-vista.md`; si quieres cambiarlo, escribe otro ADR que
-lo supersede en lugar de moverlos sin más.
+Los intents viven en `:app`, no en `:domain`: un intent es el nombre de un gesto de una pantalla
+concreta y cambia cuando cambia el diseño, no cuando cambia el negocio.
 
-**Antes de crear un repositorio nuevo, lee `docs/adr/0002-un-repositorio-por-agregado.md`.** El eje
-es el **agregado** (la unidad de consistencia), no el origen ni el propietario del dato. Hay dos:
+**Antes de crear un repositorio nuevo**, ten en cuenta que el eje es el **agregado** (la unidad de
+consistencia), no el origen ni el propietario del dato. Hay dos:
 `PropertyRepository` y `RelatedPropertiesRepository`; los flags del usuario están en el primero
 aunque no vengan de la red. Si la interfaz se hace incómoda, la respuesta es partirla por otro
 agregado, no volver a partirla por procedencia. Y si lo que necesitas es aislar una zona de
@@ -264,8 +263,7 @@ Cosas que ya han costado tiempo. Léelas antes de tocar la zona correspondiente.
 - **`internal` en el constructor de una clase pública.** Kotlin da **error**, no aviso:
   `EXPOSED_PARAMETER_TYPE`. Como `:app` nombra los `*Impl` de `:data` en `UciBindingsModule`, esos
   `*Impl` son públicos y **todos sus colaboradores inyectados tienen que serlo**. Por eso
-  `PropertyFlagStore` no es `internal` aunque conceptualmente lo sea; el razonamiento y las
-  alternativas están en `docs/adr/0002-un-repositorio-por-agregado.md`.
+  `PropertyFlagStore` no es `internal` aunque conceptualmente lo sea.
 - **Enum en la BD.** No persistas `enum.name`: R8 en `fullMode` puede renombrarlo. Usa un `when`
   exhaustivo a literales, como `UciTypeConverters.flagToToken`.
 - **`-keepattributes` con comodines (R8 9.2).** `*Annotation*` ya **no** conserva las anotaciones

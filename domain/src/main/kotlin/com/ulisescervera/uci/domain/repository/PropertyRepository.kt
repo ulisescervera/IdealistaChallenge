@@ -23,7 +23,7 @@ import kotlinx.coroutines.flow.Flow
  * to the *tables* (`properties` is a replaceable cache, `property_flags` is
  * user data with no foreign key to it) and to the implementation, which keeps
  * a separate internal collaborator for flags. Cohesion at the boundary,
- * separation behind it. See `docs/adr/0002-un-repositorio-por-agregado.md`.
+ * separation behind it.
  *
  * ### The shape of the contract
  * ```

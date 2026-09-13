@@ -2,8 +2,9 @@ package com.ulisescervera.uci.core.mvi
 
 /**
  * The presentation contract of UCI. Three marker interfaces, one base
- * ViewModel, and nothing else -- see `docs/adr/0001-donde-viven-los-intents-de-la-vista.md`
- * for why these live in `:app` and not in `:domain`.
+ * ViewModel, and nothing else -- these live in `:app` and not in `:domain`
+ * because they carry presentation types (positions, indices) that change with
+ * the design, not with the business rules.
  */
 
 /**
