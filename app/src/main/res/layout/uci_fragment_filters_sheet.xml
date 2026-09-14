@@ -28,29 +28,28 @@
             android:textAppearance="@style/TextAppearance.Material3.TitleLarge" />
 
         <!-- Tipo de vivienda -->
-        <com.google.android.material.textfield.TextInputLayout
+        <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/uci_space_l"
-            android:hint="@string/uci_filters_property_type"
-            app:boxBackgroundMode="outline">
+            android:text="@string/uci_filters_property_type"
+            android:textAppearance="@style/TextAppearance.Uci.SectionTitle" />
 
-            <AutoCompleteTextView
-                android:id="@+id/uciFilterTypeInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="none" />
-        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/uciFilterTypeGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/uci_space_s" />
 
         <!-- Compra / alquiler -->
         <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/uci_space_m"
-            android:hint="@string/uci_filters_operation"
-            app:boxBackgroundMode="outline">
+            android:hint="@string/uci_filters_operation">
 
-            <AutoCompleteTextView
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/uciFilterOperationInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -229,70 +228,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="4+" />
-        </com.google.android.material.chip.ChipGroup>
-
-        <!-- Certificado energético -->
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/uci_space_l"
-            android:text="@string/uci_filters_energy_certification"
-            android:textAppearance="@style/TextAppearance.Uci.SectionTitle" />
-
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/uciFilterEnergyGroup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/uci_space_s">
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/uciFilterEnergyAPlus"
-                style="@style/Widget.Material3.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="A+" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/uciFilterEnergyA"
-                style="@style/Widget.Material3.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="A" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/uciFilterEnergyB"
-                style="@style/Widget.Material3.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="B" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/uciFilterEnergyC"
-                style="@style/Widget.Material3.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="C" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/uciFilterEnergyD"
-                style="@style/Widget.Material3.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="D" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/uciFilterEnergyE"
-                style="@style/Widget.Material3.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="E" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/uciFilterEnergyF"
-                style="@style/Widget.Material3.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="F" />
         </com.google.android.material.chip.ChipGroup>
 
         <!-- Estado -->

@@ -20,7 +20,8 @@ import com.ulisescervera.uci.domain.model.PropertyType
  * the network-eager behaviour the offline-first repository exists to avoid.
  */
 data class PropertyFilters(
-    val propertyType: PropertyType? = null,
+    /** Empty means "any type". Checkboxes, not a single choice: see [matches]. */
+    val propertyTypes: Set<PropertyType> = emptySet(),
     val operation: Operation? = null,
     val minPrice: Double? = null,
     val maxPrice: Double? = null,
@@ -30,7 +31,6 @@ data class PropertyFilters(
     val rooms: Set<Int> = emptySet(),
     /** 1, 2, 3 or [BATHROOMS_PLUS_BUCKET]. Empty means "any". */
     val bathrooms: Set<Int> = emptySet(),
-    val energyCertifications: Set<String> = emptySet(),
     val statuses: Set<String> = emptySet(),
     val requiresLift: Boolean = false,
     val requiresGarage: Boolean = false,
@@ -39,7 +39,7 @@ data class PropertyFilters(
     val isEmpty: Boolean get() = this == PropertyFilters()
 
     fun matches(property: Property): Boolean {
-        if (propertyType != null && property.propertyType != propertyType) return false
+        if (propertyTypes.isNotEmpty() && property.propertyType !in propertyTypes) return false
         if (operation != null && property.operation != operation) return false
         if (minPrice != null && property.price.amount < minPrice) return false
         if (maxPrice != null && property.price.amount > maxPrice) return false
@@ -55,7 +55,7 @@ data class PropertyFilters(
     }
 
     fun toBundle(): Bundle = Bundle().apply {
-        putString(KEY_PROPERTY_TYPE, propertyType?.name)
+        putStringArray(KEY_PROPERTY_TYPES, propertyTypes.map { it.name }.toTypedArray())
         putString(KEY_OPERATION, operation?.name)
         minPrice?.let { putDouble(KEY_MIN_PRICE, it) }
         maxPrice?.let { putDouble(KEY_MAX_PRICE, it) }
@@ -63,7 +63,6 @@ data class PropertyFilters(
         maxSize?.let { putDouble(KEY_MAX_SIZE, it) }
         putIntArray(KEY_ROOMS, rooms.toIntArray())
         putIntArray(KEY_BATHROOMS, bathrooms.toIntArray())
-        putStringArray(KEY_ENERGY, energyCertifications.toTypedArray())
         putStringArray(KEY_STATUSES, statuses.toTypedArray())
         putBoolean(KEY_LIFT, requiresLift)
         putBoolean(KEY_GARAGE, requiresGarage)
@@ -73,7 +72,7 @@ data class PropertyFilters(
         const val ROOMS_PLUS_BUCKET = 5
         const val BATHROOMS_PLUS_BUCKET = 4
 
-        private const val KEY_PROPERTY_TYPE = "uci_filter_property_type"
+        private const val KEY_PROPERTY_TYPES = "uci_filter_property_types"
         private const val KEY_OPERATION = "uci_filter_operation"
         private const val KEY_MIN_PRICE = "uci_filter_min_price"
         private const val KEY_MAX_PRICE = "uci_filter_max_price"
@@ -87,8 +86,10 @@ data class PropertyFilters(
         private const val KEY_GARAGE = "uci_filter_garage"
 
         fun fromBundle(bundle: Bundle): PropertyFilters = PropertyFilters(
-            propertyType = bundle.getString(KEY_PROPERTY_TYPE)
-                ?.let { runCatching { PropertyType.valueOf(it) }.getOrNull() },
+            propertyTypes = bundle.getStringArray(KEY_PROPERTY_TYPES)
+                ?.mapNotNull { runCatching { PropertyType.valueOf(it) }.getOrNull() }
+                ?.toSet()
+                .orEmpty(),
             operation = bundle.getString(KEY_OPERATION)
                 ?.let { runCatching { Operation.valueOf(it) }.getOrNull() },
             minPrice = bundle.takeIf { it.containsKey(KEY_MIN_PRICE) }?.getDouble(KEY_MIN_PRICE),
@@ -97,7 +98,6 @@ data class PropertyFilters(
             maxSize = bundle.takeIf { it.containsKey(KEY_MAX_SIZE) }?.getDouble(KEY_MAX_SIZE),
             rooms = bundle.getIntArray(KEY_ROOMS)?.toSet().orEmpty(),
             bathrooms = bundle.getIntArray(KEY_BATHROOMS)?.toSet().orEmpty(),
-            energyCertifications = bundle.getStringArray(KEY_ENERGY)?.toSet().orEmpty(),
             statuses = bundle.getStringArray(KEY_STATUSES)?.toSet().orEmpty(),
             requiresLift = bundle.getBoolean(KEY_LIFT),
             requiresGarage = bundle.getBoolean(KEY_GARAGE),

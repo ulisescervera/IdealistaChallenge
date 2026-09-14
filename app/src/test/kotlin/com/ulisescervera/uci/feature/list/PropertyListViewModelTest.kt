@@ -123,7 +123,7 @@ class PropertyListViewModelTest {
         propertyRepository.emitVisible(listOf(AppFixtures.property("1", type = PropertyType.FLAT)))
 
         model.dispatch(
-            PropertyListIntent.FiltersApplied(PropertyFilters(propertyType = PropertyType.CHALET)),
+            PropertyListIntent.FiltersApplied(PropertyFilters(propertyTypes = setOf(PropertyType.UNKNOWN))),
         )
 
         // There is content -- this is not the same as an empty feed -- it is

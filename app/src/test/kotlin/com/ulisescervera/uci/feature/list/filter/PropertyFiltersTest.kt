@@ -28,12 +28,22 @@ class PropertyFiltersTest {
 
     @Test
     fun `a property type filter excludes every other type`() {
-        val filters = PropertyFilters(propertyType = PropertyType.CHALET)
+        val filters = PropertyFilters(propertyTypes = setOf(PropertyType.FLAT))
         val flat = AppFixtures.property("1", type = PropertyType.FLAT)
-        val chalet = AppFixtures.property("2", type = PropertyType.CHALET)
+        val unknown = AppFixtures.property("2", type = PropertyType.UNKNOWN)
 
-        assertThat(filters.matches(flat)).isFalse()
-        assertThat(filters.matches(chalet)).isTrue()
+        assertThat(filters.matches(flat)).isTrue()
+        assertThat(filters.matches(unknown)).isFalse()
+    }
+
+    @Test
+    fun `several selected types match any one of them`() {
+        val filters = PropertyFilters(propertyTypes = setOf(PropertyType.FLAT, PropertyType.UNKNOWN))
+        val flat = AppFixtures.property("1", type = PropertyType.FLAT)
+        val unknown = AppFixtures.property("2", type = PropertyType.UNKNOWN)
+
+        assertThat(filters.matches(flat)).isTrue()
+        assertThat(filters.matches(unknown)).isTrue()
     }
 
     @Test
@@ -130,7 +140,7 @@ class PropertyFiltersTest {
     @Test
     fun `round-tripping through a bundle preserves every field`() {
         val filters = PropertyFilters(
-            propertyType = PropertyType.CHALET,
+            propertyTypes = setOf(PropertyType.FLAT, PropertyType.UNKNOWN),
             operation = Operation.RENT,
             minPrice = 100.0,
             maxPrice = 200.0,

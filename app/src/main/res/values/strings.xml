@@ -26,12 +26,8 @@
     <string name="uci_list_all_discarded_title">Has descartado todos los inmuebles</string>
     <string name="uci_list_all_discarded_body">Restaura alguno para volver a verlo en el listado.</string>
     <string name="uci_list_error_title">No hemos podido cargar los inmuebles</string>
-    <!--
-        The button exists; what it opens does not yet — there is no
-        "all properties on a map" screen in the app. Tapping it is
-        intentionally a no-op today (see PropertyListFragment.ListMenuProvider).
-    -->
     <string name="uci_list_action_map">Ver mapa</string>
+    <string name="uci_list_map_title">Mapa de inmuebles</string>
     <string name="uci_list_action_filter">Filtros</string>
     <string name="uci_list_filtered_empty_title">Ningún inmueble coincide</string>
     <string name="uci_list_filtered_empty_body">Prueba a quitar algún filtro para ver más resultados.</string>
@@ -67,16 +63,6 @@
     <string name="uci_property_title_two_parts">%1$s - %2$s</string>
 
     <string name="uci_property_type_flat">Piso</string>
-    <string name="uci_property_type_duplex">Dúplex</string>
-    <string name="uci_property_type_penthouse">Ático</string>
-    <string name="uci_property_type_studio">Estudio</string>
-    <string name="uci_property_type_chalet">Chalet</string>
-    <string name="uci_property_type_country_house">Casa rural</string>
-    <string name="uci_property_type_house">Casa</string>
-    <string name="uci_property_type_room">Habitación</string>
-    <string name="uci_property_type_garage">Garaje</string>
-    <string name="uci_property_type_office">Oficina</string>
-    <string name="uci_property_type_premises">Local</string>
     <string name="uci_property_type_unknown">Inmueble</string>
 
     <!-- Prices. The suffix comes from the API ("€", "€/mes"). -->
@@ -115,6 +101,7 @@
     <string name="uci_action_restore">Restaurar</string>
     <string name="uci_action_share">Compartir</string>
     <string name="uci_action_close">Cerrar</string>
+    <string name="uci_action_back">Volver</string>
 
     <!-- Undo banner -->
     <string name="uci_undo_single">Has borrado un inmueble del listado.</string>
@@ -221,6 +208,7 @@
     <string name="uci_a11y_loading_related">Cargando inmuebles relacionados</string>
     <string name="uci_a11y_map">Mapa centrado en %1$s</string>
     <string name="uci_a11y_map_generic">Mapa con la ubicación del inmueble</string>
+    <string name="uci_a11y_list_map">Mapa con la ubicación de los inmuebles del listado</string>
     <string name="uci_a11y_immersive_on">Modo pantalla completa activado. Toca de nuevo para salir</string>
     <string name="uci_a11y_immersive_off">Modo pantalla completa desactivado</string>
     <string name="uci_a11y_discarded_row">%1$s, %2$s. Pulsa para restaurarlo</string>

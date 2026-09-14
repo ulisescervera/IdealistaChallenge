@@ -52,15 +52,15 @@ class PropertyFormatterTest {
     @Test
     fun `a missing part collapses the separator instead of leaving a gap`() {
         // "Piso -  - Madrid" looks like a bug, because it is one.
-        val title = formatter.title(PropertyType.CHALET, PropertyAddress(municipality = "Madrid"))
+        val title = formatter.title(PropertyType.FLAT, PropertyAddress(municipality = "Madrid"))
 
-        assertThat(title).isEqualTo("Chalet - Madrid")
+        assertThat(title).isEqualTo("Piso - Madrid")
         assertThat(title).doesNotContain("-  -")
     }
 
     @Test
     fun `with no address at all only the type is shown`() {
-        assertThat(formatter.title(PropertyType.PENTHOUSE, PropertyAddress())).isEqualTo("Ático")
+        assertThat(formatter.title(PropertyType.FLAT, PropertyAddress())).isEqualTo("Piso")
     }
 
     @Test
@@ -136,9 +136,9 @@ class PropertyFormatterTest {
     }
 
     @Test
-    fun `a chalet reports neither floor nor lift`() {
+    fun `non-vertical housing reports neither floor nor lift`() {
         val labels = formatter.facts(
-            AppFixtures.property(type = PropertyType.CHALET, floor = Floor.NotApplicable),
+            AppFixtures.property(type = PropertyType.UNKNOWN, floor = Floor.NotApplicable),
         ).map { it.label }
 
         assertThat(labels).containsExactly("133 m²", "3 habitaciones", "2 baños").inOrder()

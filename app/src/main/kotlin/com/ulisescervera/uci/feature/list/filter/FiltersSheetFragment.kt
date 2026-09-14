@@ -1,6 +1,7 @@
 package com.ulisescervera.uci.feature.list.filter
 
 import android.os.Bundle
+import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,22 +47,46 @@ class FiltersSheetFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val current = PropertyFilters.fromBundle(requireArguments())
-        setUpDropdowns(current)
+        setUpTypeChips(current)
+        setUpOperationDropdown(current)
         setUpChips(current)
         setUpTextFields(current)
         setUpActions()
     }
 
-    private fun setUpDropdowns(current: PropertyFilters) = with(binding) {
-        val types = listOf(null) + PROPERTY_TYPES
-        val typeLabels = listOf(getString(R.string.uci_filters_any)) +
-            PROPERTY_TYPES.map(propertyFormatter::propertyTypeLabel)
-        uciFilterTypeInput.setAdapter(
-            ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, typeLabels),
+    /**
+     * Checkboxes, not a single dropdown: the brief asks for several types to
+     * be selectable at once, so this mirrors the rooms/bathrooms chip groups
+     * instead of [uciFilterOperationInput]'s single-choice dropdown. Built
+     * programmatically because [PROPERTY_TYPES] -- and therefore how many
+     * chips exist -- is data, not a fixed count like rooms or bathrooms.
+     */
+    private fun setUpTypeChips(current: PropertyFilters) = with(binding) {
+        uciFilterTypeGroup.removeAllViews()
+        val chipContext = ContextThemeWrapper(
+            requireContext(),
+            com.google.android.material.R.style.Widget_Material3_Chip_Filter,
         )
-        uciFilterTypeInput.setText(typeLabels[types.indexOf(current.propertyType)], false)
-        uciFilterTypeInput.tag = current.propertyType
+        PROPERTY_TYPES.forEach { type ->
+            val chip = Chip(chipContext).apply {
+                text = propertyFormatter.propertyTypeLabel(type)
+                isCheckable = true
+                isChecked = type in current.propertyTypes
+                tag = type
+            }
+            uciFilterTypeGroup.addView(chip)
+        }
+    }
 
+    /**
+     * Uses `MaterialAutoCompleteTextView` inside a
+     * `...ExposedDropdownMenu`-styled `TextInputLayout`: a plain
+     * `AutoCompleteTextView` with `inputType="none"` never receives the text
+     * change that would normally trigger its suggestion filter, so tapping it
+     * did nothing. The exposed-dropdown pairing wires the tap itself to
+     * `showDropDown()`.
+     */
+    private fun setUpOperationDropdown(current: PropertyFilters) = with(binding) {
         val operations = listOf(null, Operation.SALE, Operation.RENT)
         val operationLabels = listOf(
             getString(R.string.uci_filters_any),
@@ -73,10 +98,6 @@ class FiltersSheetFragment : BottomSheetDialogFragment() {
         )
         uciFilterOperationInput.setText(operationLabels[operations.indexOf(current.operation)], false)
         uciFilterOperationInput.tag = current.operation
-
-        uciFilterTypeInput.setOnItemClickListener { _, _, position, _ ->
-            uciFilterTypeInput.tag = types[position]
-        }
         uciFilterOperationInput.setOnItemClickListener { _, _, position, _ ->
             uciFilterOperationInput.tag = operations[position]
         }
@@ -92,14 +113,6 @@ class FiltersSheetFragment : BottomSheetDialogFragment() {
         uciFilterBathrooms2.isChecked = 2 in current.bathrooms
         uciFilterBathrooms3.isChecked = 3 in current.bathrooms
         uciFilterBathrooms4Plus.isChecked = PropertyFilters.BATHROOMS_PLUS_BUCKET in current.bathrooms
-
-        uciFilterEnergyAPlus.isChecked = ENERGY_A_PLUS in current.energyCertifications
-        uciFilterEnergyA.isChecked = "A" in current.energyCertifications
-        uciFilterEnergyB.isChecked = "B" in current.energyCertifications
-        uciFilterEnergyC.isChecked = "C" in current.energyCertifications
-        uciFilterEnergyD.isChecked = "D" in current.energyCertifications
-        uciFilterEnergyE.isChecked = "E" in current.energyCertifications
-        uciFilterEnergyF.isChecked = "F" in current.energyCertifications
 
         uciFilterStatusNew.isChecked = STATUS_NEW in current.statuses
         uciFilterStatusGood.isChecked = STATUS_GOOD in current.statuses
@@ -123,7 +136,11 @@ class FiltersSheetFragment : BottomSheetDialogFragment() {
 
     private fun readFilters(): PropertyFilters = with(binding) {
         PropertyFilters(
-            propertyType = uciFilterTypeInput.tag as? PropertyType,
+            propertyTypes = (0 until uciFilterTypeGroup.childCount)
+                .map { uciFilterTypeGroup.getChildAt(it) as Chip }
+                .filter(Chip::isChecked)
+                .map { it.tag as PropertyType }
+                .toSet(),
             operation = uciFilterOperationInput.tag as? Operation,
             minPrice = uciFilterPriceMin.text?.toString()?.toDoubleOrNull(),
             maxPrice = uciFilterPriceMax.text?.toString()?.toDoubleOrNull(),
@@ -140,15 +157,6 @@ class FiltersSheetFragment : BottomSheetDialogFragment() {
                 uciFilterBathrooms2 to 2,
                 uciFilterBathrooms3 to 3,
                 uciFilterBathrooms4Plus to PropertyFilters.BATHROOMS_PLUS_BUCKET,
-            ),
-            energyCertifications = checkedValues(
-                uciFilterEnergyAPlus to ENERGY_A_PLUS,
-                uciFilterEnergyA to "A",
-                uciFilterEnergyB to "B",
-                uciFilterEnergyC to "C",
-                uciFilterEnergyD to "D",
-                uciFilterEnergyE to "E",
-                uciFilterEnergyF to "F",
             ),
             statuses = checkedValues(
                 uciFilterStatusNew to STATUS_NEW,
@@ -181,18 +189,11 @@ class FiltersSheetFragment : BottomSheetDialogFragment() {
         private const val STATUS_GOOD = "buen_estado"
         private const val STATUS_TO_RENOVATE = "para_reformar"
 
-        private val PROPERTY_TYPES = listOf(
-            PropertyType.FLAT,
-            PropertyType.DUPLEX,
-            PropertyType.PENTHOUSE,
-            PropertyType.STUDIO,
-            PropertyType.CHALET,
-            PropertyType.COUNTRY_HOUSE,
-            PropertyType.HOUSE,
-            PropertyType.ROOM,
-            PropertyType.GARAGE,
-            PropertyType.OFFICE,
-            PropertyType.PREMISES,
-        )
+        // Only [PropertyType.FLAT] is offered: it is the only value
+        // https://idealista.github.io/android-challenge/list.json ever sends
+        // for `propertyType` (see PropertyType's class doc). Listed as a
+        // sequence, not hardcoded into a single chip, so widening this the
+        // day the endpoint returns something else is a one-line change here.
+        private val PROPERTY_TYPES = listOf(PropertyType.FLAT)
     }
 }

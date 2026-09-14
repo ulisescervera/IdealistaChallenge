@@ -18,8 +18,6 @@ class PropertyModelTest {
     @Test
     fun `property type maps every api value it claims to support`() {
         assertThat(PropertyType.from("flat")).isEqualTo(PropertyType.FLAT)
-        assertThat(PropertyType.from("chalet")).isEqualTo(PropertyType.CHALET)
-        assertThat(PropertyType.from("countryHouse")).isEqualTo(PropertyType.COUNTRY_HOUSE)
     }
 
     @Test
@@ -38,9 +36,7 @@ class PropertyModelTest {
     @Test
     fun `only multi storey housing reports floor and lift`() {
         assertThat(PropertyType.FLAT.isVerticalHousing).isTrue()
-        assertThat(PropertyType.PENTHOUSE.isVerticalHousing).isTrue()
-        assertThat(PropertyType.CHALET.isVerticalHousing).isFalse()
-        assertThat(PropertyType.COUNTRY_HOUSE.isVerticalHousing).isFalse()
+        assertThat(PropertyType.UNKNOWN.isVerticalHousing).isFalse()
     }
 
     // --------------------------------------------------------------------- Floor
@@ -55,8 +51,8 @@ class PropertyModelTest {
 
     @Test
     fun `floor is not applicable for housing without storeys`() {
-        // A chalet has no "floor" to report, which is different from not knowing.
-        assertThat(Floor.from("2", PropertyType.CHALET)).isEqualTo(Floor.NotApplicable)
+        // Non-vertical housing has no "floor" to report, which is different from not knowing.
+        assertThat(Floor.from("2", PropertyType.UNKNOWN)).isEqualTo(Floor.NotApplicable)
     }
 
     @Test

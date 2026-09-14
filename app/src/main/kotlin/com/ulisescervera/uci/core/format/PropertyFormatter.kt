@@ -259,15 +259,5 @@ class PropertyFormatter @Inject constructor(
 @StringRes
 internal fun PropertyType.labelRes(): Int = when (this) {
     PropertyType.FLAT -> R.string.uci_property_type_flat
-    PropertyType.DUPLEX -> R.string.uci_property_type_duplex
-    PropertyType.PENTHOUSE -> R.string.uci_property_type_penthouse
-    PropertyType.STUDIO -> R.string.uci_property_type_studio
-    PropertyType.CHALET -> R.string.uci_property_type_chalet
-    PropertyType.COUNTRY_HOUSE -> R.string.uci_property_type_country_house
-    PropertyType.HOUSE -> R.string.uci_property_type_house
-    PropertyType.ROOM -> R.string.uci_property_type_room
-    PropertyType.GARAGE -> R.string.uci_property_type_garage
-    PropertyType.OFFICE -> R.string.uci_property_type_office
-    PropertyType.PREMISES -> R.string.uci_property_type_premises
     PropertyType.UNKNOWN -> R.string.uci_property_type_unknown
 }
