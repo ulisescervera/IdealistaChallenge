@@ -3,8 +3,9 @@
     Detail screen.
 
     A single vertical RecyclerView, as required, with one view type per section.
-    The toolbar floats over the gallery (which draws behind the status bar) so
-    the shared-element transition from the list is not clipped by a solid app bar.
+    The toolbar is a solid app bar, not a floating overlay: `PropertyDetailFragment.applyInsets`
+    pads the list's top by the toolbar's own (inset-aware) height, so content starts right
+    below it instead of underneath it.
 -->
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -79,7 +80,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="?attr/actionBarSize"
-        android:background="@android:color/transparent"
+        android:background="?attr/colorSurface"
         android:fitsSystemWindows="true"
         app:navigationContentDescription="@string/uci_action_back"
         app:navigationIcon="@drawable/ic_uci_chevron_left" />

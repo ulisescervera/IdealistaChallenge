@@ -2,12 +2,19 @@
 <!--
     The three horizontal actions, plus the favourite date underneath.
 
-    Equal-weight tonal buttons, icon-only: the labels were dropped per request,
-    so the accessible name now comes from `contentDescription` alone —
-    `ActionsViewHolder.bind` keeps it in sync with each button's state (e.g.
-    "Añadir a favoritos" vs "Quitar de favoritos"), same as it already did for
-    `stateDescription`. The 48dp minimum height still holds: it comes from
-    `Widget.Uci.DetailAction`'s `minHeight`, not from the label.
+    Icon-only tonal buttons, each sized to its own content (icon + the
+    style's padding), not stretched to a third of the row: an `equal weight`
+    button with no label is mostly empty tonal background around a small
+    icon. Each button sits centered inside an equal-weight `FrameLayout`
+    instead, so the three hit targets still land at even, predictable
+    positions across the row without inheriting its full width.
+
+    The accessible name comes from `contentDescription` alone (labels were
+    dropped per request) — `ActionsViewHolder.bind` keeps it in sync with
+    each button's state (e.g. "Añadir a favoritos" vs "Quitar de
+    favoritos"), same as it already did for `stateDescription`. The 48dp
+    minimum height still holds: it comes from `Widget.Uci.DetailAction`'s
+    `minHeight`, not from the label.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -22,14 +29,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:baselineAligned="false"
+        android:layout_gravity="end"
         android:orientation="horizontal">
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/uciDetailFavouriteButton"
             style="@style/Widget.Uci.DetailAction"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_gravity="center"
             android:checkable="true"
             android:contentDescription="@string/uci_action_favourite_add"
             app:icon="@drawable/ic_uci_favourite" />
@@ -37,20 +50,18 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/uciDetailDiscardButton"
             style="@style/Widget.Uci.DetailAction"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/uci_space_s"
-            android:layout_weight="1"
+            android:layout_gravity="center"
             android:contentDescription="@string/uci_action_discard"
             app:icon="@drawable/ic_uci_delete" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/uciDetailShareButton"
             style="@style/Widget.Uci.DetailAction"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/uci_space_s"
-            android:layout_weight="1"
+            android:layout_gravity="center"
             android:contentDescription="@string/uci_action_share"
             app:icon="@drawable/ic_uci_share" />
     </LinearLayout>

@@ -81,10 +81,19 @@
         <item name="iconTint">@color/uci_favourite_icon_tint</item>
     </style>
 
-    <style name="Widget.Uci.DetailAction" parent="Widget.Material3.Button.TonalButton.Icon">
+    <!--
+        Icon-only, not "tonal button with an icon": that variant pads for a
+        label that follows the icon, so a label-less button ends up
+        off-centre with the icon pushed toward the start edge and each
+        button a different width depending on its icon's intrinsic size.
+        `IconButton.Filled.Tonal` is Material's own dedicated style for this
+        shape: fixed `iconSize`, equal padding on all four sides, which is
+        what makes the icon centred and all three buttons the same size
+        regardless of which icon they carry.
+    -->
+    <style name="Widget.Uci.DetailAction" parent="Widget.Material3.Button.IconButton.Filled.Tonal">
+        <item name="android:minWidth">@dimen/uci_touch_target_min</item>
         <item name="android:minHeight">@dimen/uci_touch_target_min</item>
-        <item name="iconGravity">textStart</item>
-        <item name="android:textAppearance">@style/TextAppearance.Uci.Label</item>
     </style>
 
     <style name="Widget.Uci.TextButton" parent="Widget.Material3.Button.TextButton">

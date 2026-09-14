@@ -174,7 +174,6 @@
 
     <!-- ===================== Image viewer ===================== -->
     <string name="uci_viewer_title">Fotos del inmueble</string>
-    <string name="uci_viewer_grid_hint">Toca una foto para verla a pantalla completa.</string>
     <string name="uci_viewer_page_indicator">%1$d / %2$d</string>
 
     <!-- ===================== Favourites ===================== -->

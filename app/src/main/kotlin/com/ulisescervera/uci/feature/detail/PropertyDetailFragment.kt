@@ -3,6 +3,7 @@ package com.ulisescervera.uci.feature.detail
 import android.os.Bundle
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.doOnLayout
 import androidx.core.view.updatePadding
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -90,9 +91,13 @@ class PropertyDetailFragment : ViewBindingFragment<UciFragmentPropertyDetailBind
         binding.root.postDelayed(::startEnterTransitionOnce, TRANSITION_TIMEOUT_MILLIS)
     }
 
-    private fun applyInsets() {
-        // The gallery draws behind the status bar; only the toolbar is inset.
-        ViewCompat.setOnApplyWindowInsetsListener(binding.uciDetailList) { view, insets ->
+    private fun applyInsets() = with(binding) {
+        // The toolbar pads its own top for the status bar via
+        // `fitsSystemWindows`, so by the time it is laid out its height
+        // already includes that inset -- exactly the top padding the list
+        // needs to start right below it instead of underneath it.
+        uciDetailToolbar.doOnLayout { toolbar -> uciDetailList.updatePadding(top = toolbar.height) }
+        ViewCompat.setOnApplyWindowInsetsListener(uciDetailList) { view, insets ->
             val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             view.updatePadding(bottom = bars.bottom)
             insets

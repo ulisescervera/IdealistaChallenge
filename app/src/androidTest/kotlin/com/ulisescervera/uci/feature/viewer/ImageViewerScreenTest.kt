@@ -65,7 +65,6 @@ class ImageViewerScreenTest {
             ),
         )
 
-        composeRule.onNodeWithText("Toca una foto para verla a pantalla completa.").assertIsDisplayed()
         // The backend's own translation plus the position, so a screen-reader
         // user knows both what and where.
         composeRule.onNodeWithContentDescription("Foto 1 de 3: Salón").assertIsDisplayed()
@@ -90,7 +89,7 @@ class ImageViewerScreenTest {
     }
 
     @Test
-    fun thePagerShowsTheCounterAndTheHintIsGone() {
+    fun thePagerShowsTheCounter() {
         setScreen(
             ImageViewerUiState(
                 propertyId = "1",
@@ -101,8 +100,6 @@ class ImageViewerScreenTest {
         )
 
         composeRule.onNodeWithText("1 / 3").assertIsDisplayed()
-        composeRule.onNodeWithText("Toca una foto para verla a pantalla completa.")
-            .assertDoesNotExist()
     }
 
     @Test

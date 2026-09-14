@@ -149,7 +149,6 @@
     <string name="uci_share_chooser">Share property</string>
 
     <string name="uci_viewer_title">Property photos</string>
-    <string name="uci_viewer_grid_hint">Tap a photo to see it full screen.</string>
     <string name="uci_viewer_page_indicator">%1$d / %2$d</string>
 
     <string name="uci_favourites_title">Favourites</string>

@@ -9,6 +9,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.fragment.findNavController
 import com.ulisescervera.uci.R
 import com.ulisescervera.uci.core.ui.ComposeFragment
 import com.ulisescervera.uci.core.ui.ext.collectWhileStarted
@@ -47,7 +48,11 @@ class ImageViewerFragment : ComposeFragment() {
     @Composable
     override fun ScreenContent() {
         val state by viewModel.state.collectAsStateWithLifecycle()
-        ImageViewerScreen(state = state, onIntent = viewModel::dispatch)
+        ImageViewerScreen(
+            state = state,
+            onIntent = viewModel::dispatch,
+            onBack = { findNavController().navigateUp() },
+        )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

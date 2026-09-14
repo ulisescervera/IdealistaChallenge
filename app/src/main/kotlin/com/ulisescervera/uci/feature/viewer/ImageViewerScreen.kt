@@ -23,8 +23,14 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -40,6 +46,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.unit.dp
@@ -62,11 +69,18 @@ import com.ulisescervera.uci.domain.model.PropertyImage
  * [ImageViewerIntent]s. All of the mode state lives in the ViewModel, which is
  * what makes rotation non-destructive -- the composition is thrown away on
  * every orientation change and rebuilt from state.
+ *
+ * The top bar mirrors [ImageViewerUiState.showsSystemBars] exactly: it is the
+ * one piece of chrome this screen owns, so it appears and disappears in lock
+ * step with the system bars the fragment drives, and content always starts
+ * right below it rather than underneath it.
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ImageViewerScreen(
     state: ImageViewerUiState,
     onIntent: (ImageViewerIntent) -> Unit,
+    onBack: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     // The backdrop animates to black in immersive mode so the transition does
@@ -80,36 +94,59 @@ fun ImageViewerScreen(
         label = "uci-viewer-backdrop",
     )
 
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .background(backgroundColor),
-    ) {
-        when {
-            state.isLoading -> ViewerSkeleton()
+    Scaffold(
+        modifier = modifier,
+        containerColor = backgroundColor,
+        topBar = {
+            if (state.showsSystemBars) {
+                TopAppBar(
+                    title = {},
+                    navigationIcon = {
+                        IconButton(onClick = onBack) {
+                            Icon(
+                                painter = painterResource(R.drawable.ic_uci_chevron_left),
+                                contentDescription = stringResource(R.string.uci_action_back),
+                            )
+                        }
+                    },
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.surface,
+                    ),
+                )
+            }
+        },
+    ) { contentPadding ->
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(contentPadding),
+        ) {
+            when {
+                state.isLoading -> ViewerSkeleton()
 
-            state.images.isEmpty() -> Text(
-                text = stringResource(R.string.uci_a11y_property_photo_placeholder),
-                style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .padding(32.dp),
-            )
-
-            else -> when (val mode = state.mode) {
-                ImageViewerUiState.Mode.VerticalList -> VerticalPhotoList(
-                    images = state.images,
-                    initialIndex = state.initialImageIndex,
-                    onPhotoClick = { index -> onIntent(ImageViewerIntent.PhotoOpened(index)) },
+                state.images.isEmpty() -> Text(
+                    text = stringResource(R.string.uci_a11y_property_photo_placeholder),
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .padding(32.dp),
                 )
 
-                is ImageViewerUiState.Mode.Pager -> PhotoPager(
-                    images = state.images,
-                    initialIndex = mode.initialIndex,
-                    isImmersive = state.isImmersive,
-                    onPhotoClick = { onIntent(ImageViewerIntent.ImmersiveToggled) },
-                    onDismiss = { onIntent(ImageViewerIntent.PagerDismissed) },
-                )
+                else -> when (val mode = state.mode) {
+                    ImageViewerUiState.Mode.VerticalList -> VerticalPhotoList(
+                        images = state.images,
+                        initialIndex = state.initialImageIndex,
+                        onPhotoClick = { index -> onIntent(ImageViewerIntent.PhotoOpened(index)) },
+                    )
+
+                    is ImageViewerUiState.Mode.Pager -> PhotoPager(
+                        images = state.images,
+                        initialIndex = mode.initialIndex,
+                        isImmersive = state.isImmersive,
+                        onPhotoClick = { onIntent(ImageViewerIntent.ImmersiveToggled) },
+                        onDismiss = { onIntent(ImageViewerIntent.PagerDismissed) },
+                    )
+                }
             }
         }
     }
@@ -122,14 +159,8 @@ private fun VerticalPhotoList(
     onPhotoClick: (Int) -> Unit,
 ) {
     val formatter = LocalPropertyFormatter.current
-    // The list has a hint item at index 0, so photo N lives at index N + 1.
-    // Index 0 means "no particular photo": start at the top with the hint
-    // visible, rather than scrolling it off screen for nothing.
     val listState = rememberLazyListState(
-        initialFirstVisibleItemIndex = when {
-            initialIndex <= 0 -> 0
-            else -> (initialIndex + 1).coerceAtMost(images.size)
-        },
+        initialFirstVisibleItemIndex = initialIndex.coerceIn(0, images.lastIndex),
     )
     LazyColumn(
         state = listState,
@@ -137,13 +168,6 @@ private fun VerticalPhotoList(
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        item(key = "hint") {
-            Text(
-                text = stringResource(R.string.uci_viewer_grid_hint),
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-        }
         itemsIndexed(items = images, key = { _, image -> image.stableId }) { index, image ->
             AsyncImage(
                 model = image.url,
