@@ -241,6 +241,13 @@ Cosas que ya han costado tiempo. Léelas antes de tocar la zona correspondiente.
   el padding del inset añada altura en vez de robarla. Afecta a cualquier `Toolbar` que combine
   altura fija con relleno de insets: `uciToolbar` (`MainActivity`), `uciDetailToolbar` y
   `uciFullMapToolbar`.
+- **`AutoCompleteTextView` con `inputType="none"` dentro de un `TextInputLayout` normal.** No
+  despliega el menú al pulsar: sin poder escribir, nunca dispara el cambio de texto que activaría
+  su propio filtro de sugerencias. Hace falta el estilo
+  `Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu` en el `TextInputLayout` y un
+  `MaterialAutoCompleteTextView` (no un `AutoCompleteTextView` a secas) como hijo: esa pareja es la
+  que conecta el toque con `showDropDown()`. Le pasó al desplegable de operación (compra/alquiler)
+  del sheet de filtros.
 - **Rebind completo de una fila.** Sin *change payload*, marcar un favorito rebinda toda la fila y
   el carrusel salta a la foto 1. Ver `PropertyDiffCallback.getChangePayload`.
 - **`MapView` de osmdroid.** Posee un ejecutor de descarga de teselas. Hay que llamar a
