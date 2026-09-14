@@ -46,6 +46,10 @@
         <action
             android:id="@+id/uci_action_list_to_discarded"
             app:destination="@id/uci_destination_discarded_sheet" />
+
+        <action
+            android:id="@+id/uci_action_list_to_map"
+            app:destination="@id/uci_destination_list_map" />
     </fragment>
 
     <!--
@@ -160,6 +164,28 @@
             android:name="initialImageIndex"
             android:defaultValue="0"
             app:argType="integer" />
+    </fragment>
+
+    <!-- ==================== List map (XML views) ==================== -->
+    <!--
+        The "all properties on a map" screen reached from the list's toolbar.
+        No `<argument>` here: it reads `PropertyListViewModel.visibleProperties`
+        directly (activity-scoped, shared with `uci_destination_property_list`)
+        instead of serialising the list across the back stack.
+    -->
+    <fragment
+        android:id="@+id/uci_destination_list_map"
+        android:name="com.ulisescervera.uci.feature.map.PropertyListMapFragment"
+        android:label="@string/uci_list_map_title"
+        tools:layout="@layout/uci_fragment_property_list_map">
+
+        <action
+            android:id="@+id/uci_action_list_map_to_detail"
+            app:destination="@id/uci_destination_property_detail"
+            app:enterAnim="@animator/nav_default_enter_anim"
+            app:exitAnim="@animator/nav_default_exit_anim"
+            app:popEnterAnim="@animator/nav_default_pop_enter_anim"
+            app:popExitAnim="@animator/nav_default_pop_exit_anim" />
     </fragment>
 
     <!-- ==================== Full-screen map (XML views) ==================== -->

@@ -81,7 +81,7 @@
         android:minHeight="?attr/actionBarSize"
         android:background="@android:color/transparent"
         android:fitsSystemWindows="true"
-        app:navigationContentDescription="@string/uci_action_close"
-        app:navigationIcon="@drawable/ic_uci_close" />
+        app:navigationContentDescription="@string/uci_action_back"
+        app:navigationIcon="@drawable/ic_uci_chevron_left" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

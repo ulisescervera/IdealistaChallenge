@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    "All properties on a map", reached from the list's toolbar. One marker per
+    visible property; tapping a marker opens that property's detail. Same
+    osmdroid `MapView` and `UciMapConfigurator` as the detail's map row and
+    `FullMapFragment`, just fed several points instead of one.
+-->
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <org.osmdroid.views.MapView
+        android:id="@+id/uciListMapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/uci_a11y_list_map" />
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/uciListMapToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:background="?attr/colorSurface"
+        android:title="@string/uci_list_map_title"
+        app:navigationContentDescription="@string/uci_action_back"
+        app:navigationIcon="@drawable/ic_uci_chevron_left" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

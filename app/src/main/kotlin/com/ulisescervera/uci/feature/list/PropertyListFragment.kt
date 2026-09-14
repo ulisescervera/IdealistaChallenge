@@ -6,7 +6,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.ImageView
 import androidx.core.view.MenuProvider
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
@@ -41,7 +41,12 @@ class PropertyListFragment : ViewBindingFragment<UciFragmentPropertyListBinding>
     UciFragmentPropertyListBinding::inflate,
 ) {
 
-    private val viewModel: PropertyListViewModel by viewModels()
+    // Activity-scoped, not fragment-scoped: `PropertyMapFragment` reads the
+    // same `visibleProperties` to draw its markers, and an activity-scoped
+    // delegate is the only way two destinations get the same instance
+    // without a nav-graph-scoped Hilt ViewModel dependency this repo does not
+    // otherwise need.
+    private val viewModel: PropertyListViewModel by activityViewModels()
 
     @Inject lateinit var propertyFormatter: PropertyFormatter
 
@@ -245,6 +250,8 @@ class PropertyListFragment : ViewBindingFragment<UciFragmentPropertyListBinding>
                 is PropertyListEffect.OpenFiltersSheet -> findNavController()
                     .navigate(R.id.uci_destination_filters_sheet, effect.filters.toBundle())
 
+                PropertyListEffect.OpenMap -> findNavController().navigate(R.id.uci_action_list_to_map)
+
                 is PropertyListEffect.ShowError -> Snackbar
                     .make(binding.root, errorFormatter.message(effect.error), Snackbar.LENGTH_LONG)
                     .setAnchorView(binding.uciListSwipeRefresh)
@@ -314,13 +321,8 @@ class PropertyListFragment : ViewBindingFragment<UciFragmentPropertyListBinding>
     }
 
     /**
-     * The map icon's click target exists, but what tapping it opens does not --
-     * there is no "all properties on a map" screen in the app yet. Consuming
-     * the click without dispatching anything is deliberate for now rather than
-     * an oversight: see `uci_list_action_map` in strings.xml.
-     *
-     * The filter icon does dispatch: an `inner class` (not the top-level,
-     * stateless provider this used to be) so it can reach [viewModel].
+     * Both icons dispatch: an `inner class` (not a top-level, stateless
+     * provider) so it can reach [viewModel].
      */
     private inner class ListMenuProvider : MenuProvider {
         override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -328,7 +330,11 @@ class PropertyListFragment : ViewBindingFragment<UciFragmentPropertyListBinding>
         }
 
         override fun onMenuItemSelected(menuItem: MenuItem): Boolean = when (menuItem.itemId) {
-            R.id.uci_menu_item_map -> true
+            R.id.uci_menu_item_map -> {
+                viewModel.dispatch(PropertyListIntent.MapButtonClicked)
+                true
+            }
+
             R.id.uci_menu_item_filter -> {
                 viewModel.dispatch(PropertyListIntent.FilterButtonClicked)
                 true

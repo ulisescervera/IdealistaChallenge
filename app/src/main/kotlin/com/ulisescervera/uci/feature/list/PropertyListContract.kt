@@ -49,6 +49,9 @@ sealed interface PropertyListIntent : UiIntent {
     /** The toolbar's filter icon: open the sheet with the current filters. */
     data object FilterButtonClicked : PropertyListIntent
 
+    /** The toolbar's map icon: open the "all properties" map. */
+    data object MapButtonClicked : PropertyListIntent
+
     data class FiltersApplied(val filters: PropertyFilters) : PropertyListIntent
 }
 
@@ -129,6 +132,8 @@ sealed interface PropertyListEffect : UiEffect {
     data object OpenDiscardedSheet : PropertyListEffect
 
     data class OpenFiltersSheet(val filters: PropertyFilters) : PropertyListEffect
+
+    data object OpenMap : PropertyListEffect
 
     /** A refresh failed but there is cached content: show a transient message. */
     data class ShowError(val error: UciError) : PropertyListEffect

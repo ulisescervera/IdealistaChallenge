@@ -86,6 +86,8 @@ class PropertyListViewModel @Inject constructor(
         PropertyListIntent.FilterButtonClicked ->
             emitEffect(PropertyListEffect.OpenFiltersSheet(currentState.filters))
 
+        PropertyListIntent.MapButtonClicked -> emitEffect(PropertyListEffect.OpenMap)
+
         is PropertyListIntent.FiltersApplied -> reduce { copy(filters = intent.filters) }
     }
 

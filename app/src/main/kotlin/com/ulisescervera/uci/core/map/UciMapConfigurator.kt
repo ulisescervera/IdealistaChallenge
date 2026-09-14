@@ -9,6 +9,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
+import org.osmdroid.util.BoundingBox
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.Marker
@@ -21,13 +22,14 @@ import org.osmdroid.views.overlay.Marker
  * is cloned. A Google Maps build without a key compiles fine and then shows a
  * grey rectangle, which is the worst possible failure mode for a reviewer.
  *
- * Two configurations, because a map inside a swipeable carousel and a map you
- * can pan are genuinely different widgets:
+ * Three configurations, one per shape of "how many pins, how much gesture":
  *
  * - [configureStatic] -- no gestures at all. Inside a `ViewPager2` page, a map
  *   that consumes horizontal drags makes the carousel feel broken.
  * - [configureInteractive] -- pan and zoom, for the map row of the detail
  *   screen, where the user is deliberately exploring.
+ * - [configureMultiple] -- pan and zoom over several pins at once, for the
+ *   list's "all properties on a map" screen.
  *
  * [release] must be called when a page is recycled or a fragment's view is
  * destroyed: a `MapView` owns a tile-download executor and a tile cache, and
@@ -68,6 +70,48 @@ class UciMapConfigurator @Inject constructor(
         mapView.requestDisallowInterceptTouchEvent(true)
     }
 
+    /**
+     * One marker per [markers] entry, for the "all properties on a map" screen.
+     * A single-property map centres and zooms to a fixed street level; with
+     * several pins that fixed zoom would as easily crop half of them as show
+     * them all, so the camera instead fits a [BoundingBox] around every point.
+     */
+    fun configureMultiple(mapView: MapView, markers: List<UciMapMarker>, onMarkerClicked: (String) -> Unit) {
+        mapView.setTileSource(TileSourceFactory.MAPNIK)
+        mapView.setUseDataConnection(true)
+        mapView.isTilesScaledToDpi = true
+        mapView.setMultiTouchControls(true)
+        mapView.setBuiltInZoomControls(false)
+        mapView.overlays.clear()
+
+        val points = markers.map { GeoPoint(it.location.latitude, it.location.longitude) }
+        markers.forEachIndexed { index, marker ->
+            mapView.overlays.add(
+                Marker(mapView).apply {
+                    position = points[index]
+                    setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+                    icon = markerIcon
+                    infoWindow = null
+                    setOnMarkerClickListener { _, _ -> onMarkerClicked(marker.id).let { true } }
+                },
+            )
+        }
+
+        when (points.size) {
+            0 -> Unit
+            1 -> {
+                mapView.controller.setZoom(STATIC_ZOOM)
+                mapView.controller.setCenter(points.first())
+            }
+            // Needs a laid-out view to know its own pixel size; posting is what
+            // the boundless single-point branch above does not require.
+            else -> mapView.post {
+                mapView.zoomToBoundingBox(BoundingBox.fromGeoPoints(points), false, BOUNDING_BOX_PADDING_PX)
+            }
+        }
+        mapView.invalidate()
+    }
+
     private fun MapView.applyCommonConfiguration(location: UciGeoPoint, zoom: Double) {
         setTileSource(TileSourceFactory.MAPNIK)
         setUseDataConnection(true)
@@ -104,5 +148,9 @@ class UciMapConfigurator @Inject constructor(
         /** Street level: enough context to recognise the neighbourhood. */
         const val STATIC_ZOOM = 15.5
         const val INTERACTIVE_ZOOM = 16.0
+        const val BOUNDING_BOX_PADDING_PX = 64
     }
 }
+
+/** A pin on the "all properties" map: [id] travels back through the click to open its detail. */
+data class UciMapMarker(val id: String, val location: UciGeoPoint)

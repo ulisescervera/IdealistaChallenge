@@ -90,8 +90,13 @@ class ImageViewerFragment : ComposeFragment() {
     }
 
     override fun onDestroyView() {
-        // Always restore, whatever mode the user left in.
+        // Always restore, whatever mode the user left in. The activity's
+        // window is shared with every other destination, so undoing
+        // setDecorFitsSystemWindows is as mandatory as restoring the bars
+        // themselves -- otherwise the screen underneath inherits edge-to-edge
+        // and its navigation bar renders see-through.
         applySystemBarVisibility(visible = true)
+        activity?.window?.let { WindowCompat.setDecorFitsSystemWindows(it, true) }
         super.onDestroyView()
     }
 }
